@@ -141,6 +141,8 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 		if ( isset( $_POST['mas_wcvs_label'] ) )
 			update_woocommerce_term_meta( $term_id, 'mas_wcvs_label', $_POST['mas_wcvs_label'] );
 
+		do_action( 'mas_wcvs_save_swatch_attr_fields', $term_id, $tt_id, $taxonomy );
+
 		delete_transient( 'wc_term_counts' );
 	}
 
