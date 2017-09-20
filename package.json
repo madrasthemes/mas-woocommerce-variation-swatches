@@ -1,0 +1,35 @@
+{
+  "name": "mas-woocommerce-variation-swatches",
+  "title": "WooCommerce Variation Swatches by MadrasThemes",
+  "version": "0.0.1",
+  "homepage": "https://madrasthemes.com/mas-woocommerce-variation-swatches",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Transvelo/mas-woocommerce-variation-swatches.git"
+  },
+  "license": "GPL-3.0+",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "config": "^1.24.0",
+    "cross-env": "^3.0.0",
+    "grunt": "~1.0.1",
+    "grunt-checktextdomain": "~1.0.0",
+    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-concat": "1.0.1",
+    "grunt-contrib-cssmin": "~2.2.0",
+    "grunt-contrib-jshint": "~1.1.0",
+    "grunt-contrib-uglify": "~3.0.0",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-postcss": "~0.8.0",
+    "grunt-rtlcss": "~2.0.1",
+    "grunt-sass": "~2.0.0",
+    "grunt-stylelint": "^0.8.0",
+    "grunt-wp-i18n": "~1.0.0",
+    "stylelint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=6.9.4",
+    "npm": ">=1.1.0"
+  }
+}
