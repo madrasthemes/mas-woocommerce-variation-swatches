@@ -22,9 +22,9 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				$attr_taxonomy_name = wc_attribute_taxonomy_name( $swatch_attr_taxonomy->attribute_name );
 				// Add form
 				add_action( "{$attr_taxonomy_name}_add_form_fields",	array( $this, 'add_swatch_attr_fields' ),  10 );
-				//add_action( "{$attr_taxonomy_name}_edit_form_fields",	array( $this, 'edit_swatch_attr_fields' ), 10, 2 );
-				//add_action( 'create_term',							    array( $this, 'save_swatch_attr_fields' ), 10, 3 );
-				//add_action( 'edit_term',							    array( $this, 'save_swatch_attr_fields' ), 10, 3 );
+				add_action( "{$attr_taxonomy_name}_edit_form_fields",	array( $this, 'edit_swatch_attr_fields' ), 10, 2 );
+				add_action( 'create_term',							    array( $this, 'save_swatch_attr_fields' ), 10, 3 );
+				add_action( 'edit_term',							    array( $this, 'save_swatch_attr_fields' ), 10, 3 );
 				
 				// Add columns
 				//add_filter( "manage_edit-{$attr_taxonomy_name}_columns",	array( $this, 'product_swatch_attr_columns' ) );
@@ -33,23 +33,119 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 		}
 	}
 
-	public function add_swatch_attr_fields() {
-		?><div class="form-field"><h1>Hello World</h1></div><?php
+	public function add_swatch_attr_fields( $taxonomy ) {
+		$type = mas_wcvs_attribute_type( $taxonomy );
+		
+		switch ( $type ) {
+			case 'color':
+				?>
+				<div class="form-field">
+					<label class="color"><?php esc_html_e( 'Color', 'mas-wcvs' ); ?></label>
+					<input name="mas_wcvs_color" id="mas_wcvs_color" type="color" value autocomplete="off">
+					<p class="description"><?php echo esc_html__( 'Select a color.', 'mas-wcvs' ); ?></p>
+				</div>
+				<?php
+				break;
+
+			case 'image':
+				?>
+				<div class="form-field">
+					<label><?php esc_html_e( 'Image', 'mas-wcvs' ); ?></label>
+					<div id="mas_wcvs_image" style="float:left;margin-right:10px;"><img src="<?php echo wc_placeholder_img_src(); ?>" width="60px" height="60px" alt="" /></div>
+					<div style="line-height:60px;">
+						<input type="hidden" id="mas_wcvs_image_id" name="mas_wcvs_image_id" />
+						<button type="button" class="mas_wcvs_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wcvs' ); ?></button>
+						<button type="button" class="mas_wcvs_remove_image_button button"><?php esc_html_e( 'Remove image', 'mas-wcvs' ); ?></button>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<?php
+				break;
+
+			case 'label':
+				?>
+				<div class="form-field">
+					<label class="label"><?php esc_html_e( 'Label', 'mas-wcvs' ); ?></label>
+					<input name="mas_wcvs_label" id="label_background_color" type="text" value autocomplete="off">
+					<p class="description"><?php echo esc_html__( 'Enter your label text.', 'mas-wcvs' ); ?></p>
+				</div>
+				<?php
+				break;
+
+			default:
+				do_action( 'mas_wcvs_add_swatch_attr_fields', $taxonomy );
+				break;
+		}
 	}
 
-	public function edit_swatch_attr_fields( $term, $taxonomy ) {}
+	public function edit_swatch_attr_fields( $term, $taxonomy ) {
+		$type = mas_wcvs_attribute_type( $taxonomy );
 
-	public function save_swatch_attr_fields( $term_id, $tt_id, $taxonomy ) {}
+		$color 		= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_color', true );
+		$label 		= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_label', true );
+		$image_id 	= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
+		$image 		= ( $image_id ) ? wp_get_attachment_thumb_url( $image_id ) : wc_placeholder_img_src();
+		switch ( $type ) {
+			case 'color':
+				?>
+				<tr class="form-field">
+					<th scope="row" valign="top"><label><?php esc_html_e( 'Color', 'techmarket' ); ?></label></th>
+					<td>
+						<input name="mas_wcvs_color" id="mas_wcvs_color" type="color" value="<?php echo esc_attr( $color ); ?>" autocomplete="off">
+					</td>
+				</tr>
+				<?php
+				break;
+
+			case 'image':
+				?>
+				<tr class="form-field">
+					<th scope="row" valign="top"><label><?php esc_html_e( 'Image', 'techmarket' ); ?></label></th>
+					<td>
+						<div id="mas_wcvs_edit_image" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( $image ); ?>" alt="" style="max-width: 150px; height: auto;" /></div>
+						<div style="line-height:60px;">
+							<input type="hidden" id="mas_wcvs_edit_image_id" name="mas_wcvs_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
+							<button type="submit" class="mas_wcvs_edit_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'techmarket' ); ?></button>
+							<button type="submit" class="mas_wcvs_edit_remove_image_button button"><?php esc_html_e( 'Remove image', 'techmarket' ); ?></button>
+						</div>
+						<div class="clear"></div>
+					</td>
+				</tr>
+				<?php
+				break;
+
+			case 'label':
+				?>
+				<tr class="form-field">
+					<th scope="row" valign="top"><label><?php esc_html_e( 'Label', 'techmarket' ); ?></label></th>
+					<td>
+						<input name="mas_wcvs_image_id" id="mas_wcvs_image_id" type="text" value="<?php echo esc_attr( $label ); ?>" autocomplete="off">
+					</td>
+				</tr>
+				<?php
+				break;
+
+			default:
+				do_action( 'mas_wcvs_edit_swatch_attr_fields', $term, $taxonomy );
+				break;
+		}
+	}
+
+	public function save_swatch_attr_fields( $term_id, $tt_id, $taxonomy ) {
+		if ( isset( $_POST['mas_wcvs_color'] ) )
+			update_woocommerce_term_meta( $term_id, 'mas_wcvs_color', $_POST['mas_wcvs_color'] );
+
+		if ( isset( $_POST['mas_wcvs_image_id'] ) )
+			update_woocommerce_term_meta( $term_id, 'mas_wcvs_image_id', $_POST['mas_wcvs_image_id'] );
+
+		if ( isset( $_POST['mas_wcvs_label'] ) )
+			update_woocommerce_term_meta( $term_id, 'mas_wcvs_label', $_POST['mas_wcvs_label'] );
+
+		delete_transient( 'wc_term_counts' );
+	}
 
 	public function product_swatch_attr_columns( $columns ){}
 	public function product_swatch_attr_column( $columns, $column, $id ){}
-
-	public function color_form_field() {
-		?><div class="form-field">
-			<label for="term-color"><?php esc_html_e( 'Color', 'mas-wcvs' ); ?></label>
-			<input type="text" name="">
-		</div><?php
-	}
 }
 
 new MAS_WCVS_Admin_Swatch_Taxonomies();
