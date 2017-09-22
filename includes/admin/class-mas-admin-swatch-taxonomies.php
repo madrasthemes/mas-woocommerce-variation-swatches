@@ -17,9 +17,10 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	public function __construct() {
 		$swatch_attr_taxonomies = mas_wcvs_get_swatch_attribute_taxonomies();
 
-		if ( ! empty( $swatch_attr_taxonomies ) ) {
-			foreach ( $swatch_attr_taxonomies as $swatch_attr_taxonomy ) {
-				$attr_taxonomy_name = wc_attribute_taxonomy_name( $swatch_attr_taxonomy->attribute_name );
+		// if ( ! empty( $swatch_attr_taxonomies ) ) {
+			// foreach ( $swatch_attr_taxonomies as $swatch_attr_taxonomy ) {
+				// $attr_taxonomy_name = wc_attribute_taxonomy_name( $swatch_attr_taxonomy->attribute_name );
+				$attr_taxonomy_name = 'pa_color';
 				// Add form
 				add_action( "{$attr_taxonomy_name}_add_form_fields",	array( $this, 'add_swatch_attr_fields' ),  10 );
 				add_action( "{$attr_taxonomy_name}_edit_form_fields",	array( $this, 'edit_swatch_attr_fields' ), 10, 2 );
@@ -29,11 +30,12 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				// Add columns
 				//add_filter( "manage_edit-{$attr_taxonomy_name}_columns",	array( $this, 'product_swatch_attr_columns' ) );
 				//add_filter( "manage_{$attr_taxonomy_name}_custom_column",	array( $this, 'product_swatch_attr_column' ), 10, 3 );
-			}
-		}
+			// }
+		// }
 	}
 
 	public function add_swatch_attr_fields( $taxonomy ) {
+		wp_enqueue_script( 'mas-wcvs-admin' );
 		$type = mas_wcvs_attribute_type( $taxonomy );
 		
 		switch ( $type ) {
@@ -66,7 +68,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				?>
 				<div class="form-field">
 					<label class="label"><?php esc_html_e( 'Label', 'mas-wcvs' ); ?></label>
-					<input name="mas_wcvs_label" id="label_background_color" type="text" value autocomplete="off">
+					<input name="mas_wcvs_label" id="mas_wcvs_label" type="text" value autocomplete="off">
 					<p class="description"><?php echo esc_html__( 'Enter your label text.', 'mas-wcvs' ); ?></p>
 				</div>
 				<?php
@@ -79,6 +81,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	}
 
 	public function edit_swatch_attr_fields( $term, $taxonomy ) {
+		wp_enqueue_script( 'mas-wcvs-admin' );
 		$type = mas_wcvs_attribute_type( $taxonomy );
 
 		$color 		= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_color', true );
@@ -102,11 +105,11 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				<tr class="form-field">
 					<th scope="row" valign="top"><label><?php esc_html_e( 'Image', 'techmarket' ); ?></label></th>
 					<td>
-						<div id="mas_wcvs_edit_image" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( $image ); ?>" alt="" style="max-width: 150px; height: auto;" /></div>
+						<div id="mas_wcvs_image" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( $image ); ?>" alt="" style="max-width: 150px; height: auto;" /></div>
 						<div style="line-height:60px;">
-							<input type="hidden" id="mas_wcvs_edit_image_id" name="mas_wcvs_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
-							<button type="submit" class="mas_wcvs_edit_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'techmarket' ); ?></button>
-							<button type="submit" class="mas_wcvs_edit_remove_image_button button"><?php esc_html_e( 'Remove image', 'techmarket' ); ?></button>
+							<input type="hidden" id="mas_wcvs_image_id" name="mas_wcvs_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
+							<button type="submit" class="mas_wcvs_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'techmarket' ); ?></button>
+							<button type="submit" class="mas_wcvs_remove_image_button button"><?php esc_html_e( 'Remove image', 'techmarket' ); ?></button>
 						</div>
 						<div class="clear"></div>
 					</td>
@@ -119,7 +122,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				<tr class="form-field">
 					<th scope="row" valign="top"><label><?php esc_html_e( 'Label', 'techmarket' ); ?></label></th>
 					<td>
-						<input name="mas_wcvs_image_id" id="mas_wcvs_image_id" type="text" value="<?php echo esc_attr( $label ); ?>" autocomplete="off">
+						<input name="mas_wcvs_label" id="mas_wcvs_label" type="text" value="<?php echo esc_attr( $label ); ?>" autocomplete="off">
 					</td>
 				</tr>
 				<?php
