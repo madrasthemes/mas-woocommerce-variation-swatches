@@ -35,6 +35,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	}
 
 	public function add_swatch_attr_fields( $taxonomy ) {
+		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'mas-wcvs-admin' );
 		$type = mas_wcvs_attribute_type( $taxonomy );
 		
@@ -43,7 +44,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				?>
 				<div class="form-field">
 					<label class="color"><?php esc_html_e( 'Color', 'mas-wcvs' ); ?></label>
-					<input name="mas_wcvs_color" id="mas_wcvs_color" type="color" value autocomplete="off">
+					<input name="mas_wcvs_color" id="mas_wcvs_color" class="mas_wcvs_color_picker" type="text" value autocomplete="off">
 					<p class="description"><?php echo esc_html__( 'Select a color.', 'mas-wcvs' ); ?></p>
 				</div>
 				<?php
@@ -81,6 +82,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	}
 
 	public function edit_swatch_attr_fields( $term, $taxonomy ) {
+		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'mas-wcvs-admin' );
 		$type = mas_wcvs_attribute_type( $taxonomy );
 
@@ -94,7 +96,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				<tr class="form-field">
 					<th scope="row" valign="top"><label><?php esc_html_e( 'Color', 'techmarket' ); ?></label></th>
 					<td>
-						<input name="mas_wcvs_color" id="mas_wcvs_color" type="color" value="<?php echo esc_attr( $color ); ?>" autocomplete="off">
+						<input name="mas_wcvs_color" id="mas_wcvs_color" class="mas_wcvs_color_picker" type="text" value="<?php echo esc_attr( $color ); ?>" autocomplete="off">
 					</td>
 				</tr>
 				<?php
