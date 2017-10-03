@@ -47,4 +47,7 @@ jQuery( function ( $ ) {
 		return false;
 	});
 
+	// Add Color Picker to all inputs that have 'color-field' class
+	$( '.mas_wcvs_color_picker' ).wpColorPicker();
+
 });
