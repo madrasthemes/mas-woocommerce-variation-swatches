@@ -5,13 +5,13 @@
  * @return array of objects
  */
 function mas_wcvs_get_swatch_attribute_taxonomies() {
-	if ( false === ( $attribute_taxonomies = get_transient( 'wc_swatch_attribute_taxonomies' ) ) ) {
+	// if ( false === ( $attribute_taxonomies = get_transient( 'wc_swatch_attribute_taxonomies' ) ) ) {
 		global $wpdb;
 
 		$attribute_taxonomies = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . "woocommerce_attribute_taxonomies WHERE attribute_type = 'color' OR attribute_type = 'image' OR attribute_type = 'label' order by attribute_name ASC;" );
 
-		set_transient( 'wc_swatch_attribute_taxonomies', $attribute_taxonomies );
-	}
+		// set_transient( 'wc_swatch_attribute_taxonomies', $attribute_taxonomies );
+	// }
 
 	return (array) array_filter( apply_filters( 'woocommerce_swatch_attribute_taxonomies', $attribute_taxonomies ) );
 }
