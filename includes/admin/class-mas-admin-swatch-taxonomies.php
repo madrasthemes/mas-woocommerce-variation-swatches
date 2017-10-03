@@ -28,8 +28,8 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				add_action( 'edit_term',							    array( $this, 'save_swatch_attr_fields' ), 10, 3 );
 				
 				// Add columns
-				//add_filter( "manage_edit-{$attr_taxonomy_name}_columns",	array( $this, 'product_swatch_attr_columns' ) );
-				//add_filter( "manage_{$attr_taxonomy_name}_custom_column",	array( $this, 'product_swatch_attr_column' ), 10, 3 );
+				add_filter( "manage_edit-{$attr_taxonomy_name}_columns",	array( $this, 'product_swatch_attr_columns' ) );
+				add_filter( "manage_{$attr_taxonomy_name}_custom_column",	array( $this, 'product_swatch_attr_column' ), 10, 3 );
 			}
 		}
 	}
@@ -151,8 +151,73 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 		delete_transient( 'wc_term_counts' );
 	}
 
-	public function product_swatch_attr_columns( $columns ){}
-	public function product_swatch_attr_column( $columns, $column, $id ){}
+	public function product_swatch_attr_columns( $columns ) {
+		$taxonomy = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '';
+		$type = mas_wcvs_attribute_type( $taxonomy );
+
+		$new_columns = array();
+
+		$new_columns['cb']    = isset( $columns['cb'] ) ? $columns['cb'] : '';
+
+		switch ( $type ) {
+			case 'color':
+				$new_columns['color'] = esc_html__( 'Color', 'mas-wc-brands' );
+				break;
+
+			case 'image':
+				$new_columns['image'] = esc_html__( 'Image', 'mas-wc-brands' );
+				break;
+
+			case 'label':
+				$new_columns['label'] = esc_html__( 'Label', 'mas-wc-brands' );
+				break;
+
+			default:
+				break;
+		}
+		
+		unset( $columns['cb'] );
+
+		unset( $columns['description'] );
+
+		return array_merge( $new_columns, $columns );
+	}
+	
+	public function product_swatch_attr_column( $columns, $column, $id ) {
+
+		switch ( $column ) {
+			case 'color':
+				$color 	= get_woocommerce_term_meta( $id, 'mas_wcvs_color', true );
+				$columns .= ! empty( $color ) ? '<span style="background-color:' . esc_attr( $color ) . ';display:block;border:1px solid #ddd;width:30px;height:16px"></span>' : '';
+				break;
+
+			case 'image':
+				$image 		= '';
+				$image_id 	= get_woocommerce_term_meta( $id, 'mas_wcvs_image_id', true );
+
+				if ($image_id)
+					$image = wp_get_attachment_thumb_url( $image_id );
+				else
+					$image = wc_placeholder_img_src();
+
+				// Prevent esc_url from breaking spaces in urls for image embeds
+				// Ref: http://core.trac.wordpress.org/ticket/23605
+				$image = str_replace( ' ', '%20', $image );
+
+				$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_html__( 'Image', 'mas-wc-brands' ) . '" class="wp-post-image" height="48" width="48" />';
+				break;
+
+			case 'label':
+				$label 	= get_woocommerce_term_meta( $id, 'mas_wcvs_label', true );
+				$columns .= ! empty( $label ) ? '<span>' . esc_html( $label ) . '</span>' : '';
+				break;
+
+			default:
+				break;
+		}
+
+		return $columns;
+	}
 }
 
 new MAS_WCVS_Admin_Swatch_Taxonomies();
