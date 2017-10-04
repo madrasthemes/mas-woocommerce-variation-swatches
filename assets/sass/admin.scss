@@ -1,0 +1,19 @@
+table.wp-list-table {
+	
+	.column-color,
+	.column-image,
+	.column-label {
+		width: 52px;
+		text-align: center;
+		white-space: nowrap;
+	}
+
+	.column-color {
+		span {
+			display: inline-block;
+			border: 1px solid #ddd;
+			width: 30px;
+			height: 16px;
+		}
+	}
+}
