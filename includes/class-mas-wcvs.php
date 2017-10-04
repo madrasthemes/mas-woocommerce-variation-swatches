@@ -151,7 +151,7 @@ final class MAS_WCVS {
 		}
 
 		if ( $this->is_request( 'frontend' ) ) {
-			//$this->frontend_includes();
+			include_once( MAS_WCVS_ABSPATH . 'includes/class-mas-wcvs-frontend.php' );
 		}
 	}
 
