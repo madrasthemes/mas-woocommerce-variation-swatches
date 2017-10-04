@@ -36,7 +36,13 @@ class MAS_WCVS_Frontend {
 	 */
 	public function scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		wp_enqueue_script( 'mas-wcvs-admin-scripts', plugins_url( 'assets/js/scripts' . $suffix . '.js', MAS_WCVS_PLUGIN_FILE ), array( 'jquery' ), mas_wcvs()->version );
+		wp_register_script( 'mas-wcvs-scripts', plugins_url( 'assets/js/scripts' . $suffix . '.js', MAS_WCVS_PLUGIN_FILE ), array( 'jquery' ), mas_wcvs()->version );
+		wp_register_style( 'mas-wcvs-style', plugins_url( 'assets/css/style.css', MAS_WCVS_PLUGIN_FILE ), '', mas_wcvs()->version );
+
+		if( is_product() ) {
+			wp_enqueue_style( 'mas-wcvs-style' );
+			wp_enqueue_script( 'mas-wcvs-scripts' );
+		}
 	}
 
 	/**
