@@ -48,7 +48,8 @@ class MAS_WCVS_Admin {
 		if ( strstr( $screen_id, 'edit-pa_' ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_media();
-			wp_register_script( 'mas-wcvs-admin', plugins_url( 'assets/js/admin' . $suffix . '.js', MAS_WCVS_PLUGIN_FILE ), array( 'jquery', 'wp-color-picker' ), mas_wcvs()->version );
+			wp_register_script( 'mas-wcvs-admin-scripts', plugins_url( 'assets/js/admin' . $suffix . '.js', MAS_WCVS_PLUGIN_FILE ), array( 'jquery', 'wp-color-picker' ), mas_wcvs()->version );
+			wp_register_style( 'mas-wcvs-admin-style', plugins_url( 'assets/css/admin.css', MAS_WCVS_PLUGIN_FILE ), '', mas_wcvs()->version );
 
 			$js_options = apply_filters( 'mas_wcvs_admin_localize_script_data', array(
 				'media_title'			=> esc_html__( 'Choose an image', 'mas-wcvs' ),

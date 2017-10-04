@@ -36,7 +36,8 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 
 	public function add_swatch_attr_fields( $taxonomy ) {
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'mas-wcvs-admin' );
+		wp_enqueue_style( 'mas-wcvs-admin-style' );
+		wp_enqueue_script( 'mas-wcvs-admin-scripts' );
 		$type = mas_wcvs_attribute_type( $taxonomy );
 		
 		switch ( $type ) {
@@ -83,7 +84,8 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 
 	public function edit_swatch_attr_fields( $term, $taxonomy ) {
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'mas-wcvs-admin' );
+		wp_enqueue_style( 'mas-wcvs-admin-style' );
+		wp_enqueue_script( 'mas-wcvs-admin-scripts' );
 		$type = mas_wcvs_attribute_type( $taxonomy );
 
 		$color 		= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_color', true );
@@ -161,7 +163,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 
 		switch ( $type ) {
 			case 'color':
-				$new_columns['color'] = esc_html__( 'Color', 'mas-wc-brands' );
+				$new_columns['color'] = esc_html__( 'Color', 'mas-wcvs' );
 				break;
 
 			case 'image':
@@ -188,23 +190,19 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 		switch ( $column ) {
 			case 'color':
 				$color 	= get_woocommerce_term_meta( $id, 'mas_wcvs_color', true );
-				$columns .= ! empty( $color ) ? '<span style="background-color:' . esc_attr( $color ) . ';display:block;border:1px solid #ddd;width:30px;height:16px"></span>' : '';
+				$columns .= ! empty( $color ) ? '<span style="background-color:' . esc_attr( $color ) . ';"></span>' : '';
 				break;
 
 			case 'image':
-				$image 		= '';
 				$image_id 	= get_woocommerce_term_meta( $id, 'mas_wcvs_image_id', true );
 
-				if ($image_id)
+				if( $image_id ) {
 					$image = wp_get_attachment_thumb_url( $image_id );
-				else
+				} else {
 					$image = wc_placeholder_img_src();
+				}
 
-				// Prevent esc_url from breaking spaces in urls for image embeds
-				// Ref: http://core.trac.wordpress.org/ticket/23605
-				$image = str_replace( ' ', '%20', $image );
-
-				$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_html__( 'Image', 'mas-wc-brands' ) . '" class="wp-post-image" height="48" width="48" />';
+				$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_html__( 'Image', 'mas-wcvs' ) . '" class="wp-post-image" height="48" width="48" />';
 				break;
 
 			case 'label':
