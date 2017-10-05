@@ -40,7 +40,9 @@ class MAS_WCVS_Frontend {
 		wp_register_style( 'mas-wcvs-style', plugins_url( 'assets/css/style.css', MAS_WCVS_PLUGIN_FILE ), '', mas_wcvs()->version );
 
 		if( is_woocommerce() && ( is_product() || is_shop() || is_product_category() || is_tax( 'product_label' ) || is_tax( get_object_taxonomies( 'product' ) ) ) ) {
-			wp_enqueue_style( 'mas-wcvs-style' );
+			if( apply_filters( 'mas_wcvs_plugin_styles', true ) ) {
+				wp_enqueue_style( 'mas-wcvs-style' );
+			}
 			wp_enqueue_script( 'mas-wcvs-scripts' );
 		}
 	}
