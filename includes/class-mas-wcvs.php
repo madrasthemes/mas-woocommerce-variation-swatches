@@ -221,6 +221,6 @@ final class MAS_WCVS {
 
 		unload_textdomain( 'mas-wcvs' );
 		load_textdomain( 'mas-wcvs', WP_LANG_DIR . '/mas-woocommerce-variation-swatches/mas-wcvs-' . $locale . '.mo' );
-		load_plugin_textdomain( 'mas-wcvs', false, plugin_basename( dirname( __FILE__ ) ) . '/i18n/languages' );
+		load_plugin_textdomain( 'mas-wcvs', false, plugin_basename( dirname( MAS_WCVS_PLUGIN_FILE ) ) . '/languages' );
 	}
 }
