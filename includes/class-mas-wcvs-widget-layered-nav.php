@@ -20,9 +20,9 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 	 */
 	public function __construct() {
 		$this->widget_cssclass    = 'woocommerce widget_layered_nav mas_wcvs_widget_layered_nav';
-		$this->widget_description = __( 'Shows a custom attribute in a widget which lets you narrow down the list of products when viewing product categories.', 'woocommerce' );
+		$this->widget_description = __( 'Shows a custom attribute in a widget which lets you narrow down the list of products when viewing product categories.', 'mas-wcvs' );
 		$this->widget_id          = 'mas_wcvs_layered_nav';
-		$this->widget_name        = __( 'MAS Swatches WC layered nav', 'woocommerce' );
+		$this->widget_name        = __( 'MAS Swatches WC layered nav', 'mas-wcvs' );
 		parent::__construct();
 	}
 
@@ -71,32 +71,32 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 		$this->settings = array(
 			'title' => array(
 				'type'  => 'text',
-				'std'   => __( 'Filter by', 'woocommerce' ),
-				'label' => __( 'Title', 'woocommerce' ),
+				'std'   => __( 'Filter by', 'mas-wcvs' ),
+				'label' => __( 'Title', 'mas-wcvs' ),
 			),
 			'attribute' => array(
 				'type'    => 'select',
 				'std'     => '',
-				'label'   => __( 'Attribute', 'woocommerce' ),
+				'label'   => __( 'Attribute', 'mas-wcvs' ),
 				'options' => $attribute_array,
 			),
 			'display_type' => array(
 				'type'    => 'select',
 				'std'     => 'list',
-				'label'   => __( 'Display type', 'woocommerce' ),
+				'label'   => __( 'Display type', 'mas-wcvs' ),
 				'options' => array(
-					'list'     => __( 'List', 'woocommerce' ),
-					'dropdown' => __( 'Dropdown', 'woocommerce' ),
-					'swatches' => __( 'Swatches', 'woocommerce' ),
+					'list'     => __( 'List', 'mas-wcvs' ),
+					'dropdown' => __( 'Dropdown', 'mas-wcvs' ),
+					'swatches' => __( 'Swatches', 'mas-wcvs' ),
 				),
 			),
 			'query_type' => array(
 				'type'    => 'select',
 				'std'     => 'and',
-				'label'   => __( 'Query type', 'woocommerce' ),
+				'label'   => __( 'Query type', 'mas-wcvs' ),
 				'options' => array(
-					'and' => __( 'AND', 'woocommerce' ),
-					'or'  => __( 'OR', 'woocommerce' ),
+					'and' => __( 'AND', 'mas-wcvs' ),
+					'or'  => __( 'OR', 'mas-wcvs' ),
 				),
 			),
 		);
@@ -223,7 +223,7 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 			$_chosen_attributes   = WC_Query::get_layered_nav_chosen_attributes();
 			$taxonomy_filter_name = str_replace( 'pa_', '', $taxonomy );
 			$taxonomy_label       = wc_attribute_label( $taxonomy );
-			$any_label            = apply_filters( 'woocommerce_layered_nav_any_label', sprintf( __( 'Any %s', 'woocommerce' ), $taxonomy_label ), $taxonomy_label, $taxonomy );
+			$any_label            = apply_filters( 'woocommerce_layered_nav_any_label', sprintf( __( 'Any %s', 'mas-wcvs' ), $taxonomy_label ), $taxonomy_label, $taxonomy );
 
 			echo '<select class="dropdown_layered_nav_' . esc_attr( $taxonomy_filter_name ) . '">';
 			echo '<option value="">' . esc_html( $any_label ) . '</option>';

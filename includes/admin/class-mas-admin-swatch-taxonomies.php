@@ -96,7 +96,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 			case 'color':
 				?>
 				<tr class="form-field">
-					<th scope="row" valign="top"><label><?php esc_html_e( 'Color', 'techmarket' ); ?></label></th>
+					<th scope="row" valign="top"><label><?php esc_html_e( 'Color', 'mas-wcvs' ); ?></label></th>
 					<td>
 						<input name="mas_wcvs_color" id="mas_wcvs_color" class="mas_wcvs_color_picker" type="text" value="<?php echo esc_attr( $color ); ?>" autocomplete="off">
 					</td>
@@ -107,13 +107,13 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 			case 'image':
 				?>
 				<tr class="form-field">
-					<th scope="row" valign="top"><label><?php esc_html_e( 'Image', 'techmarket' ); ?></label></th>
+					<th scope="row" valign="top"><label><?php esc_html_e( 'Image', 'mas-wcvs' ); ?></label></th>
 					<td>
 						<div id="mas_wcvs_image" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( $image ); ?>" alt="" style="max-width: 150px; height: auto;" /></div>
 						<div style="line-height:60px;">
 							<input type="hidden" id="mas_wcvs_image_id" name="mas_wcvs_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
-							<button type="submit" class="mas_wcvs_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'techmarket' ); ?></button>
-							<button type="submit" class="mas_wcvs_remove_image_button button"><?php esc_html_e( 'Remove image', 'techmarket' ); ?></button>
+							<button type="submit" class="mas_wcvs_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wcvs' ); ?></button>
+							<button type="submit" class="mas_wcvs_remove_image_button button"><?php esc_html_e( 'Remove image', 'mas-wcvs' ); ?></button>
 						</div>
 						<div class="clear"></div>
 					</td>
@@ -124,7 +124,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 			case 'label':
 				?>
 				<tr class="form-field">
-					<th scope="row" valign="top"><label><?php esc_html_e( 'Label', 'techmarket' ); ?></label></th>
+					<th scope="row" valign="top"><label><?php esc_html_e( 'Label', 'mas-wcvs' ); ?></label></th>
 					<td>
 						<input name="mas_wcvs_label" id="mas_wcvs_label" type="text" value="<?php echo esc_attr( $label ); ?>" autocomplete="off">
 					</td>
@@ -167,11 +167,11 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				break;
 
 			case 'image':
-				$new_columns['image'] = esc_html__( 'Image', 'mas-wc-brands' );
+				$new_columns['image'] = esc_html__( 'Image', 'mas-wcvs' );
 				break;
 
 			case 'label':
-				$new_columns['label'] = esc_html__( 'Label', 'mas-wc-brands' );
+				$new_columns['label'] = esc_html__( 'Label', 'mas-wcvs' );
 				break;
 
 			default:
