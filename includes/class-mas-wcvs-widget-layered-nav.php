@@ -486,7 +486,7 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 	 */
 	protected function layered_nav_swatches( $terms, $taxonomy, $query_type ) {
 		// List display
-		echo '<ul>';
+		echo '<ul class="swatches">';
 
 		$term_counts        = $this->get_filtered_term_product_counts( wp_list_pluck( $terms, 'term_id' ), $taxonomy, $query_type );
 		$_chosen_attributes = WC_Query::get_layered_nav_chosen_attributes();
@@ -582,7 +582,7 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 
 			$term_html .= ' ' . apply_filters( 'mas_wcvs_layered_nav_count', '<span class="count">(' . absint( $count ) . ')</span>', $count, $term );
 
-			echo '<li class="mas-wcvs-layered-nav-term ' . ( $option_is_set ? 'chosen' : '' ) . '">';
+			echo '<li class="mas-wcvs-layered-nav-term swatch-' . esc_attr( $type ) . ' ' . ( $option_is_set ? 'chosen' : '' ) . '">';
 			echo wp_kses_post( apply_filters( 'mas_wcvs_layered_nav_term_html', $term_html, $term, $link, $count ) );
 			echo '</li>';
 		}
