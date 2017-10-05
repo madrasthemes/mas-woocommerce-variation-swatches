@@ -83,6 +83,9 @@ final class MAS_WCVS {
 	private function init_hooks() {
 		add_action( 'init', array( $this, 'init' ), 0 );
 		add_filter( 'product_attributes_type_selector', array( $this, 'add_attribute_types' ) );
+
+		// Widgets Register
+		add_action( 'widgets_init', array( $this, 'widgets_register' ) );
 	}
 
 	/**
@@ -153,6 +156,16 @@ final class MAS_WCVS {
 		if ( $this->is_request( 'frontend' ) ) {
 			include_once( MAS_WCVS_ABSPATH . 'includes/class-mas-wcvs-frontend.php' );
 		}
+	}
+
+	/**
+	 * Register widgets.
+	 *
+	 * @link http://codex.wordpress.org/Function_Reference/register_sidebar
+	 */
+	public function widgets_register() {
+		include_once MAS_WCVS_ABSPATH . 'includes/class-mas-wcvs-widget-layered-nav.php';
+		register_widget( 'MAS_WCVS_Widget_Layered_Nav' );
 	}
 
 	/**
