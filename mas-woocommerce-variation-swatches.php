@@ -23,20 +23,28 @@ if ( ! defined( 'MAS_WCVS_PLUGIN_FILE' ) ) {
 	define( 'MAS_WCVS_PLUGIN_FILE', __FILE__ );
 }
 
-if ( ! class_exists( 'MAS_WCVS' ) ) {
-	include_once dirname( MAS_WCVS_PLUGIN_FILE ) . '/includes/class-mas-wcvs.php';
-}
-
 /**
- * Main instance of MAS_WCVS class
- *
- * Returns the main instance of MAS_WCVS class to prevent the need to use globals.
- *
- * @return MAS_WCVS
+ * Required functions
  */
-function mas_wcvs() {
-	return MAS_WCVS::instance();
-}
+if ( ! function_exists( 'is_woocommerce_active' ) )
+	require_once( 'woo-includes/woo-functions.php' );
 
-// Global for backward compatibility
-$GLOBALS['mas_wcvs'] = mas_wcvs();
+if ( is_woocommerce_active() ) {
+	if ( ! class_exists( 'MAS_WCVS' ) ) {
+		include_once dirname( MAS_WCVS_PLUGIN_FILE ) . '/includes/class-mas-wcvs.php';
+	}
+
+	/**
+	 * Main instance of MAS_WCVS class
+	 *
+	 * Returns the main instance of MAS_WCVS class to prevent the need to use globals.
+	 *
+	 * @return MAS_WCVS
+	 */
+	function mas_wcvs() {
+		return MAS_WCVS::instance();
+	}
+
+	// Global for backward compatibility
+	$GLOBALS['mas_wcvs'] = mas_wcvs();
+}
