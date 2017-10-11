@@ -200,6 +200,31 @@ module.exports = function( grunt ) {
 					'<%= dirs.css %>/*.css'
 				]
 			}
+		},
+
+		compress: {
+			build: {
+				options: {
+					archive: '<%= pkg.name %>.zip',
+					mode: 'zip'
+				},
+				files: [ {
+					expand: true,
+					src: [
+						'**',
+						'!.*',
+						'!.*/**',
+						'.htaccess',
+						'!Gruntfile.js',
+						'!README.md',
+						'!package.json',
+						'!node_modules/**',
+						'!none',
+						'!.DS_Store',
+						'!npm-debug.log'
+					]
+				} ]
+			}
 		}
 	});
 
@@ -215,6 +240,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 
 	// Register tasks
 	grunt.registerTask( 'default', [
@@ -229,13 +255,18 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask( 'css', [
 		'sass',
-		// 'rtlcss',
+		'rtlcss',
 		'postcss',
 		'cssmin'
 	]);
 
 	grunt.registerTask( 'dev', [
 		'default',
+		'checktextdomain',
 		'makepot'
+	]);
+
+	grunt.registerTask( 'deploy', [
+		'compress:build'
 	]);
 };
