@@ -26,8 +26,18 @@ if ( ! defined( 'MAS_WCVS_PLUGIN_FILE' ) ) {
 /**
  * Required functions
  */
-if ( ! function_exists( 'is_woocommerce_active' ) )
-	require_once( 'woo-includes/woo-functions.php' );
+if ( ! function_exists( 'is_woocommerce_active' ) ) {
+	function is_woocommerce_active() {
+
+		$active_plugins = (array) get_option( 'active_plugins', array() );
+
+		if ( is_multisite() ) {
+			$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
+		}
+
+		return in_array( 'woocommerce/woocommerce.php', $active_plugins ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins );
+	}
+}
 
 if ( is_woocommerce_active() ) {
 	if ( ! class_exists( 'MAS_WCVS' ) ) {
