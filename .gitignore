@@ -41,3 +41,6 @@ tests/cli/vendor
 
 # Composer
 /vendor/
+
+/mas-woocommerce-variation-swatches/
+mas-woocommerce-variation-swatche*.zip
