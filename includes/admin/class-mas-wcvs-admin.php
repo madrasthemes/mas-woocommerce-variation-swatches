@@ -26,14 +26,14 @@ class MAS_WCVS_Admin {
 	public function init_hooks() {
 		// Add scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'woocommerce_product_option_terms', array( $this, 'product_option_terms' ), 10, 2 );
 	}
 
 	/**
-	 * Hooks actions and filters for attributes
-	 * 
+	 * Include any classes we need within admin.
 	 */
-	public function setup_attribute_hooks() {
-		
+	public function includes() {
+		include_once( dirname( __FILE__ ) . '/class-mas-admin-swatch-taxonomies.php' );
 	}
 
 	/**
@@ -62,10 +62,36 @@ class MAS_WCVS_Admin {
 	}
 
 	/**
-	 * Include any classes we need within admin.
+	 * Add selector for extra attribute types
+	 *
+	 * @param $taxonomy
+	 * @param $index
 	 */
-	public function includes() {
-		include_once( dirname( __FILE__ ) . '/class-mas-admin-swatch-taxonomies.php' );
+	public function product_option_terms( $taxonomy, $i ) {
+		if ( ! array_key_exists( $taxonomy->attribute_type, mas_wcvs()->attribute_types ) ) {
+			return;
+		}
+
+		$taxonomy_name = wc_attribute_taxonomy_name( $taxonomy->attribute_name );
+		?>
+		<select multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select terms', 'mas-wcvs' ); ?>" class="multiselect attribute_values wc-enhanced-select" name="attribute_values[<?php echo $i; ?>][]">
+			<?php
+			$args = array(
+				'orderby'    => 'name',
+				'hide_empty' => 0,
+			);
+			$all_terms = get_terms( $taxonomy_name, apply_filters( 'woocommerce_product_attribute_terms', $args ) );
+			if ( $all_terms ) {
+				foreach ( $all_terms as $term ) {
+					echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( has_term( $term->term_id, $taxonomy_name ), true, false ) . '>' . esc_attr( apply_filters( 'woocommerce_product_attribute_term_name', $term->name, $term ) ) . '</option>';
+				}
+			}
+			?>
+		</select>
+		<button class="button plus select_all_attributes"><?php _e( 'Select all', 'mas-wcvs' ); ?></button>
+		<button class="button minus select_no_attributes"><?php _e( 'Select none', 'mas-wcvs' ); ?></button>
+		<button class="button fr plus add_new_attribute"><?php _e( 'Add new', 'mas-wcvs' ); ?></button>
+		<?php
 	}
 }
 
