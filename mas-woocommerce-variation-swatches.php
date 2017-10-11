@@ -1,17 +1,21 @@
 <?php
 /**
  * Plugin Name: WooCommerce Variation Swatches by MadrasThemes
- * Plugin URI: https://madrasthemes.com/plugins/woocommerce-variation-swatches
+ * Plugin URI: https://madrasthemes.com/plugins/mas-woocommerce-variation-swatches
  * Description: Replace dropdown fields on your variable products with Color and Image Swatches
- * Version: 0.0.1
+ * Version: 1.0.0
  * Author: MadrasThemes
  * Author URI: https://madrasthemes.com/
- * Requires at least: 4.5
+ * Requires at least: 4.8
  * Tested up to: 4.8
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: mas-wcvs
  * Domain Path: /languages/
+ *
+ * @package MAS_WCVS
+ * @category Core
+ * @author MadrasThemes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
