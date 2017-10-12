@@ -1,2 +1,2 @@
 # mas-woocommerce-variation-swatches
-WooCommerce Variation Swatches by MadrasThemes
+MAS WooCommerce Variation Swatches

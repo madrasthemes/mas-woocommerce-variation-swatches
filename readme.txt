@@ -1,4 +1,4 @@
-=== WooCommerce Variation Swatches by MadrasThemes ===
+=== MAS WooCommerce Variation Swatches ===
 Contributors: madrasthemes
 Requires at least: 4.8
 Tested up to: 4.8
