@@ -10,13 +10,13 @@ Variation Swatches plugin for WooCommerce by MadrasThemes.
 
 == Description ==
 
-The WooCommerce Variation Swatches by MadrasThemes plugin can used to add color, image and label swatches to your product attributes, as well as widget with swatches for filter your products.
+The MAS WooCommerce Variation Swatches plugin can used to add color, image and label swatches to your product attributes, as well as widget with swatches for filter your products.
 
 == Installation ==
 
-The latest version of the WooCommerce Variation Swatches by MadrasThemes plugin can be [**downloaded**](https://wordpress.org/plugins/mas-woocommerce-variation-swatches/) as a WordPress installable package.
+The latest version of the MAS WooCommerce Variation Swatches plugin can be [**downloaded**](https://wordpress.org/plugins/mas-woocommerce-variation-swatches/) as a WordPress installable package.
 
-Installing the WooCommerce Variation Swatches by MadrasThemes plugin.
+Installing the MAS WooCommerce Variation Swatches plugin.
 
 1. Download the `mas-woocommerce-variation-swatches.zip` and unpack the archive.
 2. Upload `mas-woocommerce-variation-swatches` to the `/wp-content/plugins/` directory.

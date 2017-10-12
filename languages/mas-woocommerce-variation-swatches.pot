@@ -2,10 +2,10 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Variation Swatches by MadrasThemes 1.0.0\n"
+"Project-Id-Version: MAS WooCommerce Variation Swatches 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/transvelo/mas-woocommerce-variation-swatches/issues\n"
-"POT-Creation-Date: 2017-10-11 11:51:37+00:00\n"
+"POT-Creation-Date: 2017-10-12 13:56:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -60,6 +60,22 @@ msgstr ""
 
 #: includes/admin/class-mas-wcvs-admin.php:56
 msgid "Use image"
+msgstr ""
+
+#: includes/admin/class-mas-wcvs-admin.php:77
+msgid "Select terms"
+msgstr ""
+
+#: includes/admin/class-mas-wcvs-admin.php:91
+msgid "Select all"
+msgstr ""
+
+#: includes/admin/class-mas-wcvs-admin.php:92
+msgid "Select none"
+msgstr ""
+
+#: includes/admin/class-mas-wcvs-admin.php:93
+msgid "Add new"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:23
@@ -121,7 +137,7 @@ msgid "Cheatin&#8217; huh?"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "WooCommerce Variation Swatches by MadrasThemes"
+msgid "MAS WooCommerce Variation Swatches"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -130,8 +146,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Replace dropdown fields on your variable products with Color and Image "
-"Swatches"
+"Replace dropdown fields on your variable products with Color, Label and "
+"Image Swatches."
 msgstr ""
 
 #. Author of the plugin/theme
