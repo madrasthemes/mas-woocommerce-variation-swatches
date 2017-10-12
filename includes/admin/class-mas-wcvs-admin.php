@@ -88,9 +88,9 @@ class MAS_WCVS_Admin {
 			}
 			?>
 		</select>
-		<button class="button plus select_all_attributes"><?php _e( 'Select all', 'mas-wcvs' ); ?></button>
-		<button class="button minus select_no_attributes"><?php _e( 'Select none', 'mas-wcvs' ); ?></button>
-		<button class="button fr plus add_new_attribute"><?php _e( 'Add new', 'mas-wcvs' ); ?></button>
+		<button class="button plus select_all_attributes"><?php esc_html_e( 'Select all', 'mas-wcvs' ); ?></button>
+		<button class="button minus select_no_attributes"><?php esc_html_e( 'Select none', 'mas-wcvs' ); ?></button>
+		<button class="button fr plus add_new_attribute"><?php esc_html_e( 'Add new', 'mas-wcvs' ); ?></button>
 		<?php
 	}
 }
