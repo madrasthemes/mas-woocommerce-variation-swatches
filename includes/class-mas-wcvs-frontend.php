@@ -72,7 +72,7 @@ class MAS_WCVS_Frontend {
 		}
 
 		$swatches_html  = '';
-		if ( ! empty( $options ) && $product && taxonomy_exists( $attribute ) ) {
+		if ( apply_filters( 'mas_wcvs_is_variation_swatches_html', true ) && ! empty( $options ) && $product && taxonomy_exists( $attribute ) ) {
 			// Get terms if this is a taxonomy - ordered. We need the names too.
 			$terms = wc_get_product_terms( $product->get_id(), $attribute, array( 'fields' => 'all' ) );
 
