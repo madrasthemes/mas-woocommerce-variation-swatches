@@ -37,7 +37,6 @@
 					box-shadow: 0 0 5px;
 					
 					&:before {
-						transform: rotate(45deg);
 						content: "";
 						width: 6px;
 						height: 10px;
@@ -45,8 +44,9 @@
 						border: solid #fff;
 						border-width: 0 2px 2px 0;
 						position: absolute;
-						top: 3px;
-						left: 11px;
+						left: 50%;
+						top: 42%;
+						transform: translate(-50%, -50%) rotate(45deg) ;
 					}
 				}
 			}
@@ -113,7 +113,6 @@
 						box-shadow: 0 0 5px;
 
 						&:before {
-							transform: rotate(45deg);
 							content: "";
 							width: 6px;
 							height: 10px;
@@ -121,8 +120,9 @@
 							border: solid #fff;
 							border-width: 0 2px 2px 0;
 							position: absolute;
-							top: 8px;
-							left: 11px;
+							left: 50%;
+							top: 42%;
+							transform: translate(-50%, -50%) rotate(45deg) ;
 						}
 					}
 				}
