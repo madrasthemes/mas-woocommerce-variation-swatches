@@ -205,11 +205,11 @@ module.exports = function( grunt ) {
 		compress: {
 			build: {
 				options: {
-					archive: '<%= pkg.name %>.zip',
-					mode: 'zip'
+					archive: '<%= pkg.name %>.zip'
 				},
 				files: [ {
 					expand: true,
+					dest: '<%= pkg.name %>',
 					src: [
 						'**',
 						'!.*',
@@ -267,6 +267,7 @@ module.exports = function( grunt ) {
 	]);
 
 	grunt.registerTask( 'deploy', [
+		'clean',
 		'compress:build'
 	]);
 };
