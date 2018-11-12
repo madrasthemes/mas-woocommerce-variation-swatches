@@ -153,3 +153,42 @@
 		}
 	}
 }
+
+.products {
+	.product {
+		> select {
+			margin-bottom: 15px;
+		}
+
+		.mas-wcvs-swatches {
+			margin-bottom: 15px;
+		}
+
+		.mas-wcvs-swatches .mas-wcvs-swatch.swatch-color span {
+			width: 11px;
+			height: 11px;
+		}
+
+		.mas-wcvs-swatches .mas-wcvs-swatch {
+			margin-right: 5px;
+			opacity: 1;
+			line-height: 11px;
+			padding: 4px;
+		}
+
+		.mas-wcvs-swatches .mas-wcvs-swatch.selected {
+			border: 1px solid #ededed;
+			border-radius: 50px;
+
+			span:before {
+				content: none;
+			}
+		}
+
+		.mas-wcvs-swatches {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 15px;
+		}
+	}
+}

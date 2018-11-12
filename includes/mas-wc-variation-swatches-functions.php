@@ -67,3 +67,31 @@ function mas_wcvs_attribute_type( $name ) {
 
 	return apply_filters( 'mas_wcvs_attribute_type', $type, $name );
 }
+
+/**
+ * Show Variation in Loop Products
+ *
+ */
+function mas_wcvs_loop_variation() {
+
+	global $product;
+
+	if( $product->is_type( 'variable' ) ){
+
+		$attributes = $product->get_variation_attributes();
+
+		$attribute_keys = array_keys( $attributes );
+		
+		foreach ( $attributes as $attribute_name => $options ) :
+						
+		wc_dropdown_variation_attribute_options( array(
+			'options'   => $options,
+			'attribute' => $attribute_name,
+			'product'   => $product,
+		) );
+
+		endforeach;
+	}
+}
+
+add_action( 'woocommerce_after_shop_loop_item', 'mas_wcvs_loop_variation', 6 );
