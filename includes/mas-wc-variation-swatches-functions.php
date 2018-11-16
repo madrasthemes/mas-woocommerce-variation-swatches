@@ -78,19 +78,7 @@ function mas_wcvs_loop_variation() {
 
 	if( $product->is_type( 'variable' ) ){
 
-		$attributes = $product->get_variation_attributes();
-
-		$attribute_keys = array_keys( $attributes );
-		
-		foreach ( $attributes as $attribute_name => $options ) :
-						
-		wc_dropdown_variation_attribute_options( array(
-			'options'   => $options,
-			'attribute' => $attribute_name,
-			'product'   => $product,
-		) );
-
-		endforeach;
+		woocommerce_variable_add_to_cart();
 	}
 }
 
