@@ -98,7 +98,7 @@ final class MAS_WCVS {
 	 */
 	public function add_attribute_types( $types ) {
 		$types = array_merge( $types, $this->attribute_types );
-		return $types;
+		return 1 < count( $types ) || ! array_key_exists( 'select', $types );
 	}
 	
 	/**
