@@ -545,12 +545,12 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 			$swatch_html = '';
 			switch ( $type ) {
 				case 'color':
-					$color_hex = get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_color', true );
+					$color_hex = get_term_meta( $term->term_id, 'mas_wcvs_color', true );
 					$swatch_html = sprintf( '<span style="background-color:%1$s;color:%1$s;" title="%2$s">%2$s</span>', $color_hex, $term->name );
 					break;
 				
 				case 'image':
-					$image_id = get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
+					$image_id = get_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
 
 					if( $image_id ) {
 						$image_url = wp_get_attachment_thumb_url( $image_id );
@@ -562,7 +562,7 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 					break;
 
 				case 'label':
-					$label = get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_label', true );
+					$label = get_term_meta( $term->term_id, 'mas_wcvs_label', true );
 
 					$swatch_html = sprintf( '<span title="%2$s">%1$s</span>', $label, $term->name );
 					break;

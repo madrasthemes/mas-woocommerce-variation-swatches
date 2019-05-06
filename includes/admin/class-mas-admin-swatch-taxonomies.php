@@ -88,9 +88,9 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 		wp_enqueue_script( 'mas-wcvs-admin-scripts' );
 		$type = mas_wcvs_attribute_type( $taxonomy );
 
-		$color 		= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_color', true );
-		$label 		= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_label', true );
-		$image_id 	= get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
+		$color 		= get_term_meta( $term->term_id, 'mas_wcvs_color', true );
+		$label 		= get_term_meta( $term->term_id, 'mas_wcvs_label', true );
+		$image_id 	= get_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
 		$image 		= ( $image_id ) ? wp_get_attachment_thumb_url( $image_id ) : wc_placeholder_img_src();
 		switch ( $type ) {
 			case 'color':
@@ -189,12 +189,12 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 
 		switch ( $column ) {
 			case 'color':
-				$color 	= get_woocommerce_term_meta( $id, 'mas_wcvs_color', true );
+				$color 	= get_term_meta( $id, 'mas_wcvs_color', true );
 				$columns .= ! empty( $color ) ? '<span style="background-color:' . esc_attr( $color ) . ';"></span>' : '';
 				break;
 
 			case 'image':
-				$image_id 	= get_woocommerce_term_meta( $id, 'mas_wcvs_image_id', true );
+				$image_id 	= get_term_meta( $id, 'mas_wcvs_image_id', true );
 
 				if( $image_id ) {
 					$image = wp_get_attachment_thumb_url( $image_id );
@@ -206,7 +206,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				break;
 
 			case 'label':
-				$label 	= get_woocommerce_term_meta( $id, 'mas_wcvs_label', true );
+				$label 	= get_term_meta( $id, 'mas_wcvs_label', true );
 				$columns .= ! empty( $label ) ? '<span>' . esc_html( $label ) . '</span>' : '';
 				break;
 

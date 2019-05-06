@@ -104,7 +104,7 @@ class MAS_WCVS_Frontend {
 
 		switch ( $type ) {
 			case 'color':
-				$color_hex = get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_color', true );
+				$color_hex = get_term_meta( $term->term_id, 'mas_wcvs_color', true );
 				list( $r, $g, $b ) = sscanf( $color_hex, "#%02x%02x%02x" );
 				$color = sprintf( '<span style="background-color:%s;color:%s;">%s</span>', $color_hex, "rgba($r,$g,$b,0.5)", $name );
 
@@ -112,7 +112,7 @@ class MAS_WCVS_Frontend {
 				break;
 			
 			case 'image':
-				$image_id = get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
+				$image_id = get_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
 
 				if( $image_id ) {
 					$image_url = wp_get_attachment_thumb_url( $image_id );
@@ -126,7 +126,7 @@ class MAS_WCVS_Frontend {
 				break;
 
 			case 'label':
-				$label = get_woocommerce_term_meta( $term->term_id, 'mas_wcvs_label', true );
+				$label = get_term_meta( $term->term_id, 'mas_wcvs_label', true );
 
 				$html = sprintf( '<span class="mas-wcvs-swatch swatch-label swatch-%2$s %3$s" data-value="%2$s" title="%1$s">%4$s</span>', $name, $value, $selected, $label );
 				break;
