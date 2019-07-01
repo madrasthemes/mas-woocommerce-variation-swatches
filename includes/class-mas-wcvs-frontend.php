@@ -110,7 +110,7 @@ class MAS_WCVS_Frontend {
 
 				$html = sprintf( '<span class="mas-wcvs-swatch swatch-color swatch-%2$s %3$s" data-value="%2$s" title="%1$s">%4$s</span>', $name, $value, $selected, $color );
 				break;
-			
+
 			case 'image':
 				$image_id = get_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
 
@@ -120,7 +120,7 @@ class MAS_WCVS_Frontend {
 					$image_url = wc_placeholder_img_src();
 				}
 
-				$image = sprintf( '<img src="%s" alt="%s">', $image_url, $name );
+				$image = sprintf( '<span class="swatch-image-labe">%2$s</span> <img src="%1$s" alt="%2$s">', $image_url, $name );
 
 				$html = sprintf( '<span class="mas-wcvs-swatch swatch-image swatch-%2$s %3$s" data-value="%2$s" title="%1$s">%4$s</span>', $name, $value, $selected, $image );
 				break;
@@ -134,7 +134,7 @@ class MAS_WCVS_Frontend {
 			default:
 				break;
 		}
-		
+
 		return apply_filters( 'mas_wcvs_variation_swatches_html', $html, $term, $type, $args );
 	}
 }
