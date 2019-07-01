@@ -57,7 +57,7 @@ class MAS_WCVS_Admin {
 				'placeholder_img_src'	=> wc_placeholder_img_src()
 			) );
 
-			wp_localize_script( 'mas-wcvs-admin', 'mas_wcvs_admin_options', $js_options );
+			wp_localize_script( 'mas-wcvs-admin-scripts', 'mas_wcvs_admin_options', $js_options );
 		}
 	}
 }
