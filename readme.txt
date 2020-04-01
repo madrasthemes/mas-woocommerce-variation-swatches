@@ -12,15 +12,7 @@ Brands plugin for WooCommerce by MadrasThemes.
 
 == Description ==
 
-The MAS Variation Swatches for WooCommerce plugin can add brands to your products, as well as widgets and shortcodes for displaying your brands.
-
-Create a product attribute for brand and configure the brand attribute settings in WooCommerce > Settings > Products > Brands.
-
-Use the `[mas_product_brand_list]` shortcode to display brands A-Z. Allowed attributes are show_top_links and show_empty_brands.
-
-Use the `[mas_product_brand_thumbnails]` shortcode to display brands thumbnails. Allowed attributes are columns, orderby, order, slug, hide_empty and number.
-
-[youtube https://www.youtube.com/watch?v=9KTYwoiX2is]
+The MAS Variation Swatches for WooCommerce plugin will replace dropdown fields on your variable products with Color, Label and Image Swatches.
 
 == Installation ==
 
