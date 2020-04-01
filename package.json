@@ -1,11 +1,11 @@
 {
   "name": "mas-woocommerce-variation-swatches",
-  "title": "MAS WooCommerce Variation Swatches",
+  "title": "MAS Variation Swatches for WooCommerce",
   "version": "1.0.0",
   "homepage": "https://madrasthemes.com/plugins/mas-woocommerce-variation-swatches",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Transvelo/mas-woocommerce-variation-swatches.git"
+    "url": "https://github.com/madrasthemes/mas-woocommerce-variation-swatches.git"
   },
   "license": "GPL-3.0+",
   "main": "Gruntfile.js",

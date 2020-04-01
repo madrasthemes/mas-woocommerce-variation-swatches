@@ -1,2 +1,2 @@
 # mas-woocommerce-variation-swatches
-MAS WooCommerce Variation Swatches
+MAS Variation Swatches for WooCommerce

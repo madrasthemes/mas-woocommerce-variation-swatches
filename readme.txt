@@ -1,28 +1,70 @@
-=== MAS WooCommerce Variation Swatches ===
-Contributors: madrasthemes
+=== MAS Variation Swatches for WooCommerce ===
+Contributors: madrasthemes, farookibrahim, jmabbas, yousufansa, ibndawood, anastransvelo
+Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
 Requires at least: 4.8
-Tested up to: 4.8
+Tested up to: 5.4
+Requires PHP: 5.6
 Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Variation Swatches plugin for WooCommerce by MadrasThemes.
+Brands plugin for WooCommerce by MadrasThemes.
 
 == Description ==
 
-The MAS WooCommerce Variation Swatches plugin can used to add color, image and label swatches to your product attributes, as well as widget with swatches for filter your products.
+The MAS Variation Swatches for WooCommerce plugin can add brands to your products, as well as widgets and shortcodes for displaying your brands.
+
+Create a product attribute for brand and configure the brand attribute settings in WooCommerce > Settings > Products > Brands.
+
+Use the `[mas_product_brand_list]` shortcode to display brands A-Z. Allowed attributes are show_top_links and show_empty_brands.
+
+Use the `[mas_product_brand_thumbnails]` shortcode to display brands thumbnails. Allowed attributes are columns, orderby, order, slug, hide_empty and number.
+
+[youtube https://www.youtube.com/watch?v=9KTYwoiX2is]
 
 == Installation ==
 
-The latest version of the MAS WooCommerce Variation Swatches plugin can be [**downloaded**](https://wordpress.org/plugins/mas-woocommerce-variation-swatches/) as a WordPress installable package.
+= Minimum Requirements =
 
-Installing the MAS WooCommerce Variation Swatches plugin.
+* PHP version 5.6 or greater (PHP 7.0 or greater is recommended)
 
-1. Download the `mas-woocommerce-variation-swatches.zip` and unpack the archive.
-2. Upload `mas-woocommerce-variation-swatches` to the `/wp-content/plugins/` directory.
-3. Activate the plugin through the 'Plugins' menu in WordPress.
-4. Configure the product attributes.
+= Automatic installation =
 
-== Contributing ==
+Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of MAS Variation Swatches for WooCommerce, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
 
-**Pull requests are welcome.** Please review the [guidelines for contributing](https://github.com/Transvelo/mas-woocommerce-variation-swatches/blob/master/contributing.md) and [code of conduct](https://github.com/Transvelo/mas-woocommerce-variation-swatches/blob/master/code_of_conduct.md) before contributing to this repository.
+In the search field type “MAS Variation Swatches for WooCommerce” and click Search Plugins. Once you’ve found our plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
+
+= Manual installation =
+
+The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+
+= Updating =
+
+Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
+
+== Frequently Asked Questions ==
+
+= Will MAS Variation Swatches for WooCommerce work with my theme? =
+
+Yes; MAS Variation Swatches for WooCommerce will work with any theme which supports WooCommerce.
+
+= Where can I report bugs or contribute to the project? =
+
+Bugs can be reported either in our support forum or preferably on the [MAS Variation Swatches for WooCommerce GitHub repository](https://github.com/madrasthemes/mas-woocommerce-variation-swatches/issues).
+
+= Can I contribute? =
+
+Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/mas-woocommerce-variation-swatches/) :)
+
+== Screenshots ==
+
+1. Settings page.
+2. Brand Attribute admin.
+3. Brands admin.
+4. Shortcode Editor.
+5. Shortcode Output.
+
+== Changelog ==
+
+= 1.0.0 - 2020-04-01 =
+* Initial Release

@@ -1,18 +1,14 @@
 <?php
 /**
- * Plugin Name: MAS WooCommerce Variation Swatches
- * Plugin URI: https://madrasthemes.com/plugins/mas-woocommerce-variation-swatches
+ * Plugin Name: MAS Variation Swatches for WooCommerce
+ * Plugin URI: https://github.com/madrasthemes/mas-woocommerce-variation-swatches
  * Description: Replace dropdown fields on your variable products with Color, Label and Image Swatches.
  * Version: 1.0.0
  * Author: MadrasThemes
  * Author URI: https://madrasthemes.com/
- * Requires at least: 4.8
- * Tested up to: 4.8
- * WC tested up to: 3.5.0
- * License: GPLv2 or later
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: mas-wcvs
  * Domain Path: /languages/
+ * WC tested up to: 4.0.0
  *
  * @package MAS_WCVS
  * @category Core
@@ -31,8 +27,8 @@ if ( ! defined( 'MAS_WCVS_PLUGIN_FILE' ) ) {
 /**
  * Required functions
  */
-if ( ! function_exists( 'is_woocommerce_active' ) ) {
-	function is_woocommerce_active() {
+if ( ! function_exists( 'mas_wcvs_is_woocommerce_active' ) ) {
+	function mas_wcvs_is_woocommerce_active() {
 
 		$active_plugins = (array) get_option( 'active_plugins', array() );
 
@@ -44,7 +40,7 @@ if ( ! function_exists( 'is_woocommerce_active' ) ) {
 	}
 }
 
-if ( is_woocommerce_active() ) {
+if ( mas_wcvs_is_woocommerce_active() ) {
 	if ( ! class_exists( 'MAS_WCVS' ) ) {
 		include_once dirname( MAS_WCVS_PLUGIN_FILE ) . '/includes/class-mas-wcvs.php';
 	}
