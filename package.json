@@ -21,13 +21,13 @@
     "grunt-contrib-cssmin": "~2.2.0",
     "grunt-contrib-jshint": "~1.1.0",
     "grunt-contrib-uglify": "~3.0.0",
-    "grunt-contrib-watch": "~1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-postcss": "~0.8.0",
     "grunt-rtlcss": "~2.0.1",
     "grunt-sass": "~2.0.0",
     "grunt-stylelint": "^0.8.0",
     "grunt-wp-i18n": "~1.0.0",
-    "stylelint": "^8.0.0"
+    "stylelint": "^13.2.1"
   },
   "engines": {
     "node": ">=6.9.4",
