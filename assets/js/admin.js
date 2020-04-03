@@ -50,4 +50,93 @@ jQuery( function ( $ ) {
 	// Add Color Picker to all inputs that have 'color-field' class
 	$( '.mas_wcvs_color_picker' ).wpColorPicker();
 
+	// Toggle add new attribute term modal
+	var $modal = $( '#mas_wcvs-modal-container' ),
+		$spinner = $modal.find( '.spinner' ),
+		$msg = $modal.find( '.message' ),
+		$metabox = null;
+
+	$(document).on( 'click', '.mas_wcvs_add_new_attribute', function ( e ) {
+		e.preventDefault();
+		var $button = $( this ),
+			taxInputTemplate = wp.template( 'mas_wcvs-input-tax' ),
+			data = {
+				type: $button.data( 'type' ),
+				tax : $button.closest( '.woocommerce_attribute' ).data( 'taxonomy' )
+			};
+
+		// Insert input
+		$modal.find( '.mas_wcvs-term-swatch' ).html( $( '#tmpl-mas_wcvs-input-' + data.type ).html() );
+		$modal.find( '.mas_wcvs-term-tax' ).html( taxInputTemplate( data ) );
+
+		if ( 'color' === data.type ) {
+			$modal.find( 'input.mas_wcvs-input-color' ).wpColorPicker();
+		}
+
+		$metabox = $button.closest( '.woocommerce_attribute.wc-metabox' );
+		$modal.show();
+	} ).on( 'click', '.mas_wcvs-modal-close, .mas_wcvs-modal-backdrop', function ( e ) {
+		e.preventDefault();
+
+		closeModal();
+	} );
+
+	// Send ajax request to add new attribute term
+	$(document).on( 'click', '.mas_wcvs-new-attribute-submit', function ( e ) {
+		e.preventDefault();
+
+		var $button = $( this ),
+			type = $button.data( 'type' ),
+			error = false,
+			data = {};
+
+		// Validate
+		$modal.find( '.mas_wcvs-input' ).each( function () {
+			var $this = $( this );
+
+			if ( $this.attr( 'name' ) !== 'slug' && !$this.val() ) {
+				$this.addClass( 'error' );
+				error = true;
+			} else {
+				$this.removeClass( 'error' );
+			}
+
+			data[$this.attr( 'name' )] = $this.val();
+		} );
+
+		if ( error ) {
+			return;
+		}
+
+		// Send ajax request
+		$spinner.addClass( 'is-active' );
+		$msg.hide();
+		wp.ajax.send( 'mas_wcvs_add_new_attribute', {
+			data   : data,
+			error  : function ( res ) {
+				$spinner.removeClass( 'is-active' );
+				$msg.addClass( 'error' ).text( res ).show();
+			},
+			success: function ( res ) {
+				$spinner.removeClass( 'is-active' );
+				$msg.addClass( 'success' ).text( res.msg ).show();
+
+				$metabox.find( 'select.attribute_values' ).append( '<option value="' + res.id + '" selected="selected">' + res.name + '</option>' );
+				$metabox.find( 'select.attribute_values' ).change();
+
+				closeModal();
+			}
+		} );
+	} );
+
+	/**
+	 * Close modal
+	 */
+	function closeModal() {
+		$modal.find( '.mas_wcvs-term-name input, .mas_wcvs-term-slug input' ).val( '' );
+		$spinner.removeClass( 'is-active' );
+		$msg.removeClass( 'error success' ).hide();
+		$modal.hide();
+	}
+
 });

@@ -45,7 +45,7 @@ class MAS_WCVS_Admin {
 		$screen = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		if ( strstr( $screen_id, 'edit-pa_' ) ) {
+		if ( strstr( $screen_id, 'edit-pa_' ) || in_array( 'edit-product', array( 'edit-product', 'product' ) ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_media();
 			wp_register_script( 'mas-wcvs-admin-scripts', plugins_url( 'assets/js/admin' . $suffix . '.js', MAS_WCVS_PLUGIN_FILE ), array( 'jquery', 'wp-color-picker' ), mas_wcvs()->version );
@@ -58,6 +58,12 @@ class MAS_WCVS_Admin {
 			) );
 
 			wp_localize_script( 'mas-wcvs-admin-scripts', 'mas_wcvs_admin_options', $js_options );
+		}
+
+		if ( strstr( $screen_id, 'edit-pa_' ) || in_array( 'edit-product', array( 'edit-product', 'product' ) ) ) {
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_style( 'mas-wcvs-admin-style' );
+			wp_enqueue_script( 'mas-wcvs-admin-scripts' );
 		}
 	}
 }
