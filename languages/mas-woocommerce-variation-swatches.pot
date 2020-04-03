@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MAS Variation Swatches for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: "
-"https://github.com/transvelo/mas-woocommerce-variation-swatches/issues\n"
-"POT-Creation-Date: 2020-04-03 11:33:45+00:00\n"
+"https://github.com/madrasthemes/mas-woocommerce-variation-swatches/issues\n"
+"POT-Creation-Date: 2020-04-03 11:50:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,58 +15,72 @@ msgstr ""
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: includes/admin/class-mas-admin-product.php:43
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:43
 msgid "Select terms"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:54
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:54
 msgid "Select all"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:55
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:55
 msgid "Select none"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:56
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:56
 msgid "Add new"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:73
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:73
 msgid "Wrong request"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:77
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:77
 msgid "Not enough data"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:81
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:81
 msgid "Taxonomy is not exists"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:85
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:85
 msgid "This term is exists"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:117
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:117
 msgid "Added successfully"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:140
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:140
 msgid "Add new term"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:144
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:144
 msgid "Name"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:150
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:150
 msgid "Slug"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:162
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:162
 msgid "Cancel"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:163
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:163
 msgid "Add New"
 msgstr ""
 
@@ -75,6 +89,11 @@ msgstr ""
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:93
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:163
 #: includes/class-mas-wcvs.php:68
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:173
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:44
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:93
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:163
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs.php:68
 msgid "Color"
 msgstr ""
 
@@ -84,18 +103,30 @@ msgstr ""
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:167
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:202
 #: includes/class-mas-wcvs.php:69
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:180
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:54
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:104
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:167
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:202
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs.php:69
 msgid "Image"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:186
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:58
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:109
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:186
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:58
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:109
 msgid "Upload/Add image"
 msgstr ""
 
 #: includes/admin/class-mas-admin-product.php:187
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:59
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:110
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:187
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:59
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:110
 msgid "Remove image"
 msgstr ""
 
@@ -104,80 +135,104 @@ msgstr ""
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:121
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:171
 #: includes/class-mas-wcvs.php:70
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-product.php:195
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:69
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:121
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:171
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs.php:70
 msgid "Label"
 msgstr ""
 
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:46
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:46
 msgid "Select a color."
 msgstr ""
 
 #: includes/admin/class-mas-admin-swatch-taxonomies.php:71
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-admin-swatch-taxonomies.php:71
 msgid "Enter your label text."
 msgstr ""
 
 #: includes/admin/class-mas-wcvs-admin.php:55
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-wcvs-admin.php:55
 msgid "Choose an image"
 msgstr ""
 
 #: includes/admin/class-mas-wcvs-admin.php:56
+#: mas-woocommerce-variation-swatches/includes/admin/class-mas-wcvs-admin.php:56
 msgid "Use image"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:23
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:23
 msgid ""
 "Shows a custom attribute in a widget which lets you narrow down the list of "
 "products when viewing product categories."
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:25
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:25
 msgid "MAS Swatches WC layered nav"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:74
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:74
 msgid "Filter by"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:75
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:75
 msgid "Title"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:80
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:80
 msgid "Attribute"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:86
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:86
 msgid "Display type"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:88
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:88
 msgid "List"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:89
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:89
 msgid "Dropdown"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:90
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:90
 msgid "Swatches"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:96
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:96
 msgid "Query type"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:98
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:98
 msgid "AND"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:99
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:99
 msgid "OR"
 msgstr ""
 
 #: includes/class-mas-wcvs-widget-layered-nav.php:226
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs-widget-layered-nav.php:226
 msgid "Any %s"
 msgstr ""
 
 #: includes/class-mas-wcvs.php:53 includes/class-mas-wcvs.php:60
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs.php:53
+#: mas-woocommerce-variation-swatches/includes/class-mas-wcvs.php:60
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
