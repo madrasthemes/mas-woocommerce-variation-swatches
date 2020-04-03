@@ -1,6 +1,6 @@
 === MAS Variation Swatches for WooCommerce ===
 Contributors: madrasthemes, farookibrahim, jmabbas, yousufansa, ibndawood, anastransvelo
-Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
+Tags: woocommerce, product attribute, product color, product size, variation swatches, variable products
 Requires at least: 4.8
 Tested up to: 5.4
 Requires PHP: 5.6
@@ -8,11 +8,19 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Brands plugin for WooCommerce by MadrasThemes.
+Variation Swatches plugin for WooCommerce by MadrasThemes. Replace dropdown fields on your variable products with Color, Label and Image Swatches.
 
 == Description ==
 
 The MAS Variation Swatches for WooCommerce plugin will replace dropdown fields on your variable products with Color, Label and Image Swatches.
+
+**Features provided with this plugin:**
+
+* Create attribute color swatches
+* Create attribute image swatches
+* Create attribute label/text swatches
+* Manage attribute globally
+* Create new attribute swatch in product editing page
 
 == Installation ==
 
@@ -50,13 +58,15 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Screenshots ==
 
-1. Settings page.
-2. Brand Attribute admin.
-3. Brands admin.
-4. Shortcode Editor.
-5. Shortcode Output.
+1. Product Output
+2. Add new attribute
+3. Edit Attribute
+4. Attribute color
+5. Attribute label
+6. Attribute image
+7. Add new attribute color when edit a product
 
 == Changelog ==
 
-= 1.0.0 - 2020-04-01 =
+= 1.0.0 - 2020-04-03 =
 * Initial Release
