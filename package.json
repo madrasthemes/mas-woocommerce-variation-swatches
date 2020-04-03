@@ -31,6 +31,11 @@
     "node-sass": "^4.13.1",
     "stylelint": "^13.2.1"
   },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "IE 10"
+  ],
   "engines": {
     "node": ">=6.9.4",
     "npm": ">=1.1.0"
