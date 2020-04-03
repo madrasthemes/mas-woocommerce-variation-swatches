@@ -67,6 +67,7 @@ module.exports = function( grunt ) {
 		sass: {
 			compile: {
 				options: {
+					implementation: require('node-sass'),
 					sourceMap: 'none'
 				},
 				files: [{
@@ -104,6 +105,26 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		// Autoprefixer.
+		postcss: {
+			options: {
+				processors: [
+					require( 'autoprefixer' )({
+						browsers: [
+							'> 0.1%',
+							'ie 8',
+							'ie 9'
+						]
+					})
+				]
+			},
+			dist: {
+				src: [
+					'<%= dirs.css %>/*.css'
+				]
+			}
+		},
+
 		// Watch changes for assets.
 		watch: {
 			css: {
@@ -116,28 +137,6 @@ module.exports = function( grunt ) {
 					'!<%= dirs.js %>/*.min.js'
 				],
 				tasks: ['jshint', 'uglify']
-			}
-		},
-
-		// Generate POT files.
-		makepot: {
-			options: {
-				type: 'wp-plugin',
-				domainPath: 'languages',
-				potHeaders: {
-					'report-msgid-bugs-to': 'https://github.com/transvelo/mas-woocommerce-variation-swatches/issues',
-					'language-team': 'LANGUAGE <EMAIL@ADDRESS>'
-				}
-			},
-			dist: {
-				options: {
-					potFilename: 'mas-woocommerce-variation-swatches.pot',
-					exclude: [
-						'apigen/.*',
-						'tests/.*',
-						'tmp/.*'
-					]
-				}
 			}
 		},
 
@@ -175,6 +174,28 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		// Generate POT files.
+		makepot: {
+			options: {
+				type: 'wp-plugin',
+				domainPath: 'languages',
+				potHeaders: {
+					'report-msgid-bugs-to': 'https://github.com/transvelo/mas-woocommerce-variation-swatches/issues',
+					'language-team': 'LANGUAGE <EMAIL@ADDRESS>'
+				}
+			},
+			dist: {
+				options: {
+					potFilename: 'mas-woocommerce-variation-swatches.pot',
+					exclude: [
+						'apigen/.*',
+						'tests/.*',
+						'tmp/.*'
+					]
+				}
+			}
+		},
+
 		// Clean the directory.
 		clean: {
 			dist: [
@@ -182,23 +203,30 @@ module.exports = function( grunt ) {
 			]
 		},
 
-		// Autoprefixer.
-		postcss: {
-			options: {
-				processors: [
-					require( 'autoprefixer' )({
-						browsers: [
-							'> 0.1%',
-							'ie 8',
-							'ie 9'
-						]
-					})
-				]
-			},
-			dist: {
-				src: [
-					'<%= dirs.css %>/*.css'
-				]
+		// Creates deploy-able plugin
+		copy: {
+			main: {
+				files: [ {
+					expand: true,
+					src: [
+						'**',
+						'!.*',
+						'!.*/**',
+						'.htaccess',
+						'!Gruntfile.js',
+						'!README.md',
+						'!package.json',
+						'!package-lock.json',
+						'!node_modules/**',
+						'!<%= pkg.name %>/**',
+						'!<%= pkg.name %>.zip',
+						'!assets/esnext/**',
+						'!none',
+						'!.DS_Store',
+						'!npm-debug.log'
+					],
+					dest: '<%= pkg.name %>/'
+				} ]
 			}
 		},
 
@@ -240,6 +268,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 
 	// Register tasks
@@ -267,7 +296,11 @@ module.exports = function( grunt ) {
 	]);
 
 	grunt.registerTask( 'deploy', [
-		'clean',
+		'clean:main',
+		'copy:main'
+	]);
+
+	grunt.registerTask( 'build', [
 		'compress:build'
 	]);
 };
