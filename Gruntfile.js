@@ -109,13 +109,7 @@ module.exports = function( grunt ) {
 		postcss: {
 			options: {
 				processors: [
-					require( 'autoprefixer' )({
-						browsers: [
-							'> 0.1%',
-							'ie 8',
-							'ie 9'
-						]
-					})
+					require( 'autoprefixer' )
 				]
 			},
 			dist: {
@@ -137,6 +131,28 @@ module.exports = function( grunt ) {
 					'!<%= dirs.js %>/*.min.js'
 				],
 				tasks: ['jshint', 'uglify']
+			}
+		},
+
+		// Generate POT files.
+		makepot: {
+			options: {
+				type: 'wp-plugin',
+				domainPath: 'languages',
+				potHeaders: {
+					'report-msgid-bugs-to': 'https://github.com/madrasthemes/mas-woocommerce-variation-swatches/issues',
+					'language-team': 'LANGUAGE <EMAIL@ADDRESS>'
+				}
+			},
+			dist: {
+				options: {
+					potFilename: 'mas-woocommerce-variation-swatches.pot',
+					exclude: [
+						'apigen/.*',
+						'tests/.*',
+						'tmp/.*'
+					]
+				}
 			}
 		},
 
@@ -174,31 +190,10 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		// Generate POT files.
-		makepot: {
-			options: {
-				type: 'wp-plugin',
-				domainPath: 'languages',
-				potHeaders: {
-					'report-msgid-bugs-to': 'https://github.com/transvelo/mas-woocommerce-variation-swatches/issues',
-					'language-team': 'LANGUAGE <EMAIL@ADDRESS>'
-				}
-			},
-			dist: {
-				options: {
-					potFilename: 'mas-woocommerce-variation-swatches.pot',
-					exclude: [
-						'apigen/.*',
-						'tests/.*',
-						'tmp/.*'
-					]
-				}
-			}
-		},
-
 		// Clean the directory.
 		clean: {
-			dist: [
+			main: [
+				'<%= pkg.name %>/',
 				'<%= pkg.name %>*.zip'
 			]
 		},
@@ -233,11 +228,11 @@ module.exports = function( grunt ) {
 		compress: {
 			build: {
 				options: {
-					archive: '<%= pkg.name %>.zip'
+					archive: '<%= pkg.name %>.zip',
+					mode: 'zip'
 				},
 				files: [ {
 					expand: true,
-					dest: '<%= pkg.name %>',
 					src: [
 						'**',
 						'!.*',
@@ -246,7 +241,11 @@ module.exports = function( grunt ) {
 						'!Gruntfile.js',
 						'!README.md',
 						'!package.json',
+						'!package-lock.json',
 						'!node_modules/**',
+						'!<%= pkg.name %>/**',
+						'!<%= pkg.name %>.zip',
+						'!assets/esnext/**',
 						'!none',
 						'!.DS_Store',
 						'!npm-debug.log'
