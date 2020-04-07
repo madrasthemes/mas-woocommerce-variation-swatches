@@ -45,21 +45,21 @@ final class MAS_WCVS {
 		}
 		return self::$_instance;
 	}
-	
+
 	/**
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'mas-wcvs' ), '2.1' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'mas-wcvs' ), '2.1' );
 	}
-	
+
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'mas-wcvs' ), '2.1' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'mas-wcvs' ), '2.1' );
 	}
-	
+
 	/**
 	 * Mas_WCVS Constructor.
 	 */
@@ -69,11 +69,11 @@ final class MAS_WCVS {
 			'image' => esc_html__( 'Image', 'mas-wcvs' ),
 			'label' => esc_html__( 'Label', 'mas-wcvs' )
 		);
-		
+
 		$this->define_constants();
 		$this->includes();
 		$this->init_hooks();
-		
+
 		do_action( 'mas_wcvs_loaded' );
 	}
 
@@ -100,7 +100,7 @@ final class MAS_WCVS {
 		$types = array_merge( $types, $this->attribute_types );
 		return $types;
 	}
-	
+
 	/**
 	 * Define Docs constants
 	 */
@@ -116,7 +116,6 @@ final class MAS_WCVS {
 	 * @param string      $name  Constant name.
 	 * @param string|bool $value Constant value.
 	 */
-	
 	private function define( $name, $value ) {
 		if ( ! defined( $name ) ) {
 			define( $name, $value );
@@ -146,7 +145,6 @@ final class MAS_WCVS {
 	 * Include required core files used in admin and on the frontend.
 	 */
 	public function includes() {
-		
 		include MAS_WCVS_ABSPATH . 'includes/mas-wc-variation-swatches-functions.php';
 
 		if ( $this->is_request( 'admin' ) ) {
@@ -194,7 +192,7 @@ final class MAS_WCVS {
 	public function ajax_url() {
 		return admin_url( 'admin-ajax.php', 'relative' );
 	}
-	
+
 	/**
 	 * Init Docs when Wordpress Initializes
 	 */

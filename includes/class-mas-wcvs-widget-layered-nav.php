@@ -20,9 +20,9 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 	 */
 	public function __construct() {
 		$this->widget_cssclass    = 'woocommerce widget_layered_nav mas_wcvs_widget_layered_nav';
-		$this->widget_description = __( 'Shows a custom attribute in a widget which lets you narrow down the list of products when viewing product categories.', 'mas-wcvs' );
+		$this->widget_description = esc_html__( 'Shows a custom attribute in a widget which lets you narrow down the list of products when viewing product categories.', 'mas-wcvs' );
 		$this->widget_id          = 'mas_wcvs_layered_nav';
-		$this->widget_name        = __( 'MAS Swatches WC layered nav', 'mas-wcvs' );
+		$this->widget_name        = esc_html__( 'MAS Swatches WC layered nav', 'mas-wcvs' );
 		parent::__construct();
 	}
 
@@ -71,32 +71,32 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 		$this->settings = array(
 			'title' => array(
 				'type'  => 'text',
-				'std'   => __( 'Filter by', 'mas-wcvs' ),
-				'label' => __( 'Title', 'mas-wcvs' ),
+				'std'   => esc_html__( 'Filter by', 'mas-wcvs' ),
+				'label' => esc_html__( 'Title', 'mas-wcvs' ),
 			),
 			'attribute' => array(
 				'type'    => 'select',
 				'std'     => '',
-				'label'   => __( 'Attribute', 'mas-wcvs' ),
+				'label'   => esc_html__( 'Attribute', 'mas-wcvs' ),
 				'options' => $attribute_array,
 			),
 			'display_type' => array(
 				'type'    => 'select',
 				'std'     => 'list',
-				'label'   => __( 'Display type', 'mas-wcvs' ),
+				'label'   => esc_html__( 'Display type', 'mas-wcvs' ),
 				'options' => array(
-					'list'     => __( 'List', 'mas-wcvs' ),
-					'dropdown' => __( 'Dropdown', 'mas-wcvs' ),
-					'swatches' => __( 'Swatches', 'mas-wcvs' ),
+					'list'     => esc_html__( 'List', 'mas-wcvs' ),
+					'dropdown' => esc_html__( 'Dropdown', 'mas-wcvs' ),
+					'swatches' => esc_html__( 'Swatches', 'mas-wcvs' ),
 				),
 			),
 			'query_type' => array(
 				'type'    => 'select',
 				'std'     => 'and',
-				'label'   => __( 'Query type', 'mas-wcvs' ),
+				'label'   => esc_html__( 'Query type', 'mas-wcvs' ),
 				'options' => array(
-					'and' => __( 'AND', 'mas-wcvs' ),
-					'or'  => __( 'OR', 'mas-wcvs' ),
+					'and' => esc_html__( 'AND', 'mas-wcvs' ),
+					'or'  => esc_html__( 'OR', 'mas-wcvs' ),
 				),
 			),
 		);

@@ -81,7 +81,7 @@ class MAS_WCVS_Admin_Product {
 			wp_send_json_error( esc_html__( 'Taxonomy is not exists', 'mas-wcvs' ) );
 		}
 
-		if ( term_exists( $_POST['name'], $_POST['tax'] ) ) {
+		if ( term_exists( $name, $tax ) ) {
 			wp_send_json_error( esc_html__( 'This term is exists', 'mas-wcvs' ) );
 		}
 

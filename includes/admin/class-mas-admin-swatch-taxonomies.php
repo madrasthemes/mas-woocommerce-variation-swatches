@@ -134,15 +134,15 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 
 	public function save_swatch_attr_fields( $term_id, $tt_id, $taxonomy ) {
 		if ( isset( $_POST['mas_wcvs_color'] ) ) {
-			update_term_meta( $term_id, 'mas_wcvs_color', $_POST['mas_wcvs_color'] );
+			update_term_meta( $term_id, 'mas_wcvs_color', sanitize_text_field( $_POST['mas_wcvs_color'] ) );
 		}
 
 		if ( isset( $_POST['mas_wcvs_image_id'] ) ) {
-			update_term_meta( $term_id, 'mas_wcvs_image_id', $_POST['mas_wcvs_image_id'] );
+			update_term_meta( $term_id, 'mas_wcvs_image_id', sanitize_text_field( $_POST['mas_wcvs_image_id'] ) );
 		}
 
 		if ( isset( $_POST['mas_wcvs_label'] ) ) {
-			update_term_meta( $term_id, 'mas_wcvs_label', $_POST['mas_wcvs_label'] );
+			update_term_meta( $term_id, 'mas_wcvs_label', sanitize_text_field( $_POST['mas_wcvs_label'] ) );
 		}
 
 		do_action( 'mas_wcvs_save_swatch_attr_fields', $term_id, $tt_id, $taxonomy );
@@ -151,7 +151,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	}
 
 	public function product_swatch_attr_columns( $columns ) {
-		$taxonomy = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '';
+		$taxonomy = isset( $_REQUEST['taxonomy'] ) ? sanitize_text_field( $_REQUEST['taxonomy'] ) : '';
 		$type = mas_wcvs_attribute_type( $taxonomy );
 
 		$new_columns = array();
