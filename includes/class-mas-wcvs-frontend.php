@@ -120,7 +120,7 @@ class MAS_WCVS_Frontend {
 					$image_url = wc_placeholder_img_src();
 				}
 
-				$image = sprintf( '<span class="swatch-image-labe">%2$s</span> <img src="%1$s" alt="%2$s">', $image_url, $name );
+				$image = sprintf( '<span class="swatch-image-label">%2$s</span> <img src="%1$s" alt="%2$s">', $image_url, $name );
 
 				$html = sprintf( '<span class="mas-wcvs-swatch swatch-image swatch-%2$s %3$s" data-value="%2$s" title="%1$s">%4$s</span>', $name, $value, $selected, $image );
 				break;

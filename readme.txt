@@ -68,5 +68,5 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Changelog ==
 
-= 1.0.0 - 2020-04-03 =
+= 1.0.0 - 2020-04-08 =
 * Initial Release
