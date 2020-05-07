@@ -64,15 +64,11 @@ final class MAS_WCVS {
 	 * Mas_WCVS Constructor.
 	 */
 	public function __construct() {
-		$this->attribute_types = apply_filters( 'mas_wcvs_get_attribute_types', array(
-			'color' => esc_html__( 'Color', 'mas-wcvs' ),
-			'image' => esc_html__( 'Image', 'mas-wcvs' ),
-			'label' => esc_html__( 'Label', 'mas-wcvs' )
-		) );
-
 		$this->define_constants();
 		$this->includes();
 		$this->init_hooks();
+
+		$this->attribute_types = mas_wcvs_get_attribute_types();
 
 		do_action( 'mas_wcvs_loaded' );
 	}
@@ -97,7 +93,7 @@ final class MAS_WCVS {
 	 * @return array
 	 */
 	public function add_attribute_types( $types ) {
-		$types = array_merge( $types, $this->attribute_types );
+		$types = array_merge( $types, mas_wcvs_get_attribute_types() );
 		return $types;
 	}
 

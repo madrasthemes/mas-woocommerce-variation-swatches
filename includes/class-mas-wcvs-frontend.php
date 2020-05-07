@@ -84,8 +84,8 @@ class MAS_WCVS_Frontend {
 		}
 
 		if ( ! empty( $swatches_html ) ) {
-			$swatches_html = '<div class="mas-wcvs-swatches" data-attribute_name="attribute_' . esc_attr( $attribute ) . '">' . $swatches_html . '</div>';
-			$html     = '<div class="hidden">' . $html . '</div>' . $swatches_html;
+			$swatches_html = sprintf( '<div id="%1$s" class="mas-wcvs-swatches" data-attribute_name="attribute_%2$s">%3$s</div>', esc_attr( $id ), esc_attr( $attribute ), $swatches_html );
+			$html = sprintf( '<div class="hidden">%1$s</div>%2$s', $html, $swatches_html );
 		}
 
 		return $html;

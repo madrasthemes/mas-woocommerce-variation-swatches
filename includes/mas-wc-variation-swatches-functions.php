@@ -22,7 +22,11 @@ if( ! function_exists( 'mas_wcvs_get_attribute_types' ) ) {
 	 * @return array of attribute types
 	 */
 	function mas_wcvs_get_attribute_types() {
-		return mas_wcvs()->attribute_types;
+		return apply_filters( 'mas_wcvs_get_attribute_types', array(
+			'color' => esc_html__( 'Color', 'mas-wcvs' ),
+			'image' => esc_html__( 'Image', 'mas-wcvs' ),
+			'label' => esc_html__( 'Label', 'mas-wcvs' )
+		) );
 	}
 }
 
