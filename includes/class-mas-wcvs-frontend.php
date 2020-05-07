@@ -59,7 +59,7 @@ class MAS_WCVS_Frontend {
 		$name                  = $args['name'] ? $args['name'] : 'attribute_' . sanitize_title( $attribute );
 		$id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
 		$type                  = mas_wcvs_attribute_type( $attribute );
-		$swatch_types          = mas_wcvs()->attribute_types;
+		$swatch_types          = mas_wcvs_get_attribute_types();
 
 		// Return if this is normal attribute
 		if ( ! array_key_exists( $type, $swatch_types ) ) {
