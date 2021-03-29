@@ -15,7 +15,7 @@ final class MAS_WCVS {
 	 *
 	 * @var string
 	 */
-	public $version = '1.0.2';
+	public $version = '1.0.3';
 
 	/**
 	 * The single instance of the class.

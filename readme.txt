@@ -1,10 +1,10 @@
 === MAS Variation Swatches for WooCommerce ===
-Contributors: madrasthemes, farookibrahim, jmabbas, yousufansa, ibndawood, anasruthere
+Contributors: madrasthemes, farookibrahim, jmabbas, yousufansa, ibndawood, anasruthere, nilofer07
 Tags: woocommerce, product attribute, product color, product size, variation swatches, variable products
 Requires at least: 4.8
-Tested up to: 5.6
-Requires PHP: 5.6
-Stable tag: 1.0.2
+Tested up to: 5.7
+Requires PHP: 5.7
+Stable tag: 1.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +26,7 @@ The MAS Variation Swatches for WooCommerce plugin will replace dropdown fields o
 
 = Minimum Requirements =
 
-* PHP version 5.6 or greater (PHP 7.0 or greater is recommended)
+* PHP version 5.7 or greater (PHP 7.0 or greater is recommended)
 
 = Automatic installation =
 
@@ -67,6 +67,9 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 7. Add new attribute color when edit a product
 
 == Changelog ==
+
+= 1.0.3 - 2021-03-29 =
+* Tested PHP version upto 5.7
 
 = 1.0.2 - 2019-12-17 =
 * Tweak – WooCommerce 4.8 compatible
