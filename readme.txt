@@ -4,7 +4,7 @@ Tags: woocommerce, product attribute, product color, product size, variation swa
 Requires at least: 4.8
 Tested up to: 6.0
 Requires PHP: 7.4
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,6 +67,9 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 7. Add new attribute color when edit a product
 
 == Changelog ==
+
+= 1.0.5 - 2023-10-18 =
+* Tweak - WooCommerce 8.x compatible
 
 = 1.0.4 - 2022-11-07 =
 * Tweak - WooCommerce 7.x compatible
