@@ -59,3 +59,9 @@ if ( mas_wcvs_is_woocommerce_active() ) {
 	// Global for backward compatibility
 	$GLOBALS['mas_wcvs'] = mas_wcvs();
 }
+
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
