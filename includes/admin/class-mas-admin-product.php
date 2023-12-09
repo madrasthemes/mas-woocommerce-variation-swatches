@@ -3,10 +3,11 @@
  * Handles products with swatches in admin
  *
  * @class MAS_WCVS_Admin_Product
+ * @package MAS_WCVS
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -26,8 +27,8 @@ class MAS_WCVS_Admin_Product {
 	/**
 	 * Add selector for extra attribute types
 	 *
-	 * @param $taxonomy
-	 * @param $index
+	 * @param WC_Product_Attribute $taxonomy The WooCommerce Product attribute object.
+	 * @param int                  $index Index of the term.
 	 */
 	public function product_option_terms( $taxonomy, $index ) {
 		if ( ! array_key_exists( $taxonomy->attribute_type, mas_wcvs_get_attribute_types() ) ) {
@@ -43,7 +44,16 @@ class MAS_WCVS_Admin_Product {
 		<select multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select terms', 'mas-wcvs' ); ?>" class="multiselect attribute_values wc-enhanced-select" name="attribute_values[<?php echo $index; ?>][]">
 			<?php
 
-			$all_terms = get_terms( $taxonomy_name, apply_filters( 'woocommerce_product_attribute_terms', array( 'orderby' => 'name', 'hide_empty' => false ) ) );
+			$all_terms = get_terms(
+				$taxonomy_name,
+				apply_filters(
+					'woocommerce_product_attribute_terms',
+					array(
+						'orderby'    => 'name',
+						'hide_empty' => false,
+					)
+				)
+			);
 			if ( $all_terms ) {
 				foreach ( $all_terms as $term ) {
 					echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( has_term( absint( $term->term_id ), $taxonomy_name, $product_id ), true, false ) . '>' . esc_attr( apply_filters( 'woocommerce_product_attribute_term_name', $term->name, $term ) ) . '</option>';
@@ -53,7 +63,7 @@ class MAS_WCVS_Admin_Product {
 		</select>
 		<button class="button plus select_all_attributes"><?php esc_html_e( 'Select all', 'mas-wcvs' ); ?></button>
 		<button class="button minus select_no_attributes"><?php esc_html_e( 'Select none', 'mas-wcvs' ); ?></button>
-		<button class="button fr plus mas_wcvs_add_new_attribute" data-type="<?php echo $taxonomy->attribute_type ?>"><?php esc_html_e( 'Add new', 'mas-wcvs' ); ?></button>
+		<button class="button fr plus mas_wcvs_add_new_attribute" data-type="<?php echo esc_attr( $taxonomy->attribute_type ); ?>"><?php esc_html_e( 'Add new', 'mas-wcvs' ); ?></button>
 
 		<?php
 	}
@@ -128,7 +138,7 @@ class MAS_WCVS_Admin_Product {
 	public function add_attribute_term_template() {
 		global $pagenow, $post;
 
-		if ( $pagenow != 'post.php' || ( isset( $post ) && get_post_type( $post->ID ) != 'product' ) ) {
+		if ( 'post.php' !== $pagenow || ( isset( $post ) && 'product' !== get_post_type( $post->ID ) ) ) {
 			return;
 		}
 		?>
@@ -137,17 +147,17 @@ class MAS_WCVS_Admin_Product {
 			<div class="mas_wcvs-modal">
 				<button type="button" class="button-link media-modal-close mas_wcvs-modal-close">
 					<span class="media-modal-icon"></span></button>
-				<div class="mas_wcvs-modal-header"><h2><?php esc_html_e( 'Add new term', 'mas-wcvs' ) ?></h2></div>
+				<div class="mas_wcvs-modal-header"><h2><?php esc_html_e( 'Add new term', 'mas-wcvs' ); ?></h2></div>
 				<div class="mas_wcvs-modal-content">
 					<p class="mas_wcvs-term-name">
 						<label>
-							<?php esc_html_e( 'Name', 'mas-wcvs' ) ?>
+							<?php esc_html_e( 'Name', 'mas-wcvs' ); ?>
 							<input type="text" class="widefat mas_wcvs-input" name="name">
 						</label>
 					</p>
 					<p class="mas_wcvs-term-slug">
 						<label>
-							<?php esc_html_e( 'Slug', 'mas-wcvs' ) ?>
+							<?php esc_html_e( 'Slug', 'mas-wcvs' ); ?>
 							<input type="text" class="widefat mas_wcvs-input" name="slug">
 						</label>
 					</p>
@@ -156,11 +166,11 @@ class MAS_WCVS_Admin_Product {
 					</div>
 					<div class="hidden mas_wcvs-term-tax"></div>
 
-					<input type="hidden" class="mas_wcvs-input" name="nonce" value="<?php echo wp_create_nonce( '_mas_wcvs_create_attribute' ) ?>">
+					<input type="hidden" class="mas_wcvs-input" name="nonce" value="<?php echo wp_create_nonce( '_mas_wcvs_create_attribute' ); ?>">
 				</div>
 				<div class="mas_wcvs-modal-footer">
-					<button class="button button-secondary mas_wcvs-modal-close"><?php esc_html_e( 'Cancel', 'mas-wcvs' ) ?></button>
-					<button class="button button-primary mas_wcvs-new-attribute-submit"><?php esc_html_e( 'Add New', 'mas-wcvs' ) ?></button>
+					<button class="button button-secondary mas_wcvs-modal-close"><?php esc_html_e( 'Cancel', 'mas-wcvs' ); ?></button>
+					<button class="button button-primary mas_wcvs-new-attribute-submit"><?php esc_html_e( 'Add New', 'mas-wcvs' ); ?></button>
 					<span class="message"></span>
 					<span class="spinner"></span>
 				</div>
@@ -170,16 +180,16 @@ class MAS_WCVS_Admin_Product {
 
 		<script type="text/template" id="tmpl-mas_wcvs-input-color">
 
-			<label><?php esc_html_e( 'Color', 'mas-wcvs' ) ?></label><br>
+			<label><?php esc_html_e( 'Color', 'mas-wcvs' ); ?></label><br>
 			<input type="text" class="mas_wcvs-input mas_wcvs-input-color" name="swatch">
 
 		</script>
 
 		<script type="text/template" id="tmpl-mas_wcvs-input-image">
 
-			<label><?php esc_html_e( 'Image', 'mas-wcvs' ) ?></label><br>
+			<label><?php esc_html_e( 'Image', 'mas-wcvs' ); ?></label><br>
 			<div class="mas_wcvs-term-image-thumbnail" style="float:left;margin-right:10px;">
-				<img src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/placeholder.png' ) ?>" width="60px" height="60px" />
+				<img src="<?php echo esc_url( WC()->plugin_url() . '/assets/images/placeholder.png' ); ?>" width="60px" height="60px" />
 			</div>
 			<div style="line-height:60px;">
 				<input type="hidden" class="mas_wcvs-input mas_wcvs-input-image mas_wcvs-term-image" name="swatch" value="" />
@@ -192,7 +202,7 @@ class MAS_WCVS_Admin_Product {
 		<script type="text/template" id="tmpl-mas_wcvs-input-label">
 
 			<label>
-				<?php esc_html_e( 'Label', 'mas-wcvs' ) ?>
+				<?php esc_html_e( 'Label', 'mas-wcvs' ); ?>
 				<input type="text" class="widefat mas_wcvs-input mas_wcvs-input-label" name="swatch">
 			</label>
 
