@@ -1,10 +1,10 @@
 === MAS Variation Swatches for WooCommerce ===
 Contributors: madrasthemes, farookibrahim, jmabbas, yousufansa, ibndawood, anasruthere, nilofer07
 Tags: woocommerce, product attribute, product color, product size, variation swatches, variable products
-Requires at least: 4.8
-Tested up to: 6.0
+Requires at least: 6.4
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,6 +67,10 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 7. Add new attribute color when edit a product
 
 == Changelog ==
+
+= 1.0.6 - 2024-09-14 =
+* Feature - WooCommerce 9.3 compatible
+* Feature - WordPress 6.6 compatible
 
 = 1.0.5 - 2023-10-18 =
 * Tweak - WooCommerce 8.x compatible
