@@ -1,5 +1,5 @@
 === MAS Variation Swatches for WooCommerce ===
-Contributors: madrasthemes, farookibrahim, jmabbas, yousufansa, ibndawood, anasruthere, nilofer07
+Contributors: madrasthemes
 Tags: woocommerce, product attribute, product color, product size, variation swatches, variable products
 Requires at least: 6.4
 Tested up to: 6.6
