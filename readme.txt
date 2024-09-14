@@ -68,6 +68,9 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Changelog ==
 
+= 1.0.7 - 2024-09-14 =
+* Updates - Contributors list
+
 = 1.0.6 - 2024-09-14 =
 * Feature - WooCommerce 9.3 compatible
 * Feature - WordPress 6.6 compatible
