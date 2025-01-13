@@ -61,4 +61,9 @@
 		$( '.variations_form' ).mas_wcvs_variation_swatches_form();
 		$( document.body ).trigger( 'mas_wcvs_initialized' );
 	} );
+
+	$(document).on('yith_quick_view_loaded', function () {
+	    $('.variations_form').mas_wcvs_variation_swatches_form();
+	    $(document.body).trigger('mas_wcvs_initialized');
+	});
 })( jQuery );
