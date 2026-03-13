@@ -9,7 +9,11 @@
   },
   "license": "GPL-3.0+",
   "main": "Gruntfile.js",
+  "scripts": {
+    "wp-env": "wp-env"
+  },
   "devDependencies": {
+    "@wordpress/env": "^11.1.0",
     "autoprefixer": "^9.7.5",
     "config": "^3.3.1",
     "cross-env": "^7.0.2",
@@ -28,7 +32,7 @@
     "grunt-sass": "^3.1.0",
     "grunt-stylelint": "^0.14.0",
     "grunt-wp-i18n": "^1.0.3",
-    "node-sass": "^4.13.1",
+    "sass": "^1.98.0",
     "stylelint": "^13.2.1"
   },
   "browserslist": [
