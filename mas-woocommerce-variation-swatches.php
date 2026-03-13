@@ -8,7 +8,8 @@
  * Author URI: https://madrasthemes.com/
  * Text Domain: mas-wcvs
  * Domain Path: /languages/
- * WC tested up to: 9.3
+ * WC tested up to: 10.6.1
+ * Requires Plugins: woocommerce
  *
  * @package MAS_WCVS
  * @category Core
