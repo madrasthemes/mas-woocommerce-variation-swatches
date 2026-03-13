@@ -1,7 +1,7 @@
 {
   "name": "mas-woocommerce-variation-swatches",
   "title": "MAS Variation Swatches for WooCommerce",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "homepage": "https://madrasthemes.com/plugins/mas-woocommerce-variation-swatches",
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "grunt-rtlcss": "^2.0.2",
     "grunt-sass": "^3.1.0",
     "grunt-stylelint": "^0.14.0",
+    "grunt-version": "^3.0.2",
     "grunt-wp-i18n": "^1.0.3",
     "sass": "^1.98.0",
     "stylelint": "^13.2.1"
