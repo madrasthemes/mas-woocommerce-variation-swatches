@@ -1,0 +1,13 @@
+{
+    "core": null,
+    "port": 4900,
+    "testsEnvironment": false,
+    "config": {
+        "WP_DEBUG": true,
+        "WP_SITEURL": "http://host.docker.internal/",
+        "WP_HOME": "http://host.docker.internal/"
+    },
+    "mappings": {
+        "wp-content/plugins/mas-woocommerce-variation-swatches": "."
+    }
+}
