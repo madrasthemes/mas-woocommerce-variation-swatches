@@ -28,6 +28,26 @@ module.exports = function( grunt ) {
 			]
 		},
 
+		version: {
+			defaults: {
+				src: [ 
+					'includes/class-mas-wcvs.php',
+				]
+			},
+			plugin_file: {
+				options: {
+					prefix: 'Version:\\s*\\s'
+				},
+				src: [ 'mas-woocommerce-variation-swatches.php' ]
+			},
+			readme: {
+				options: {
+					prefix: 'Stable tag:\\s*\\s'
+				},
+				src: [ 'readme.txt' ]
+			}
+		},
+
 		// Sass linting with Stylelint.
 		stylelint: {
 			options: {
@@ -67,8 +87,8 @@ module.exports = function( grunt ) {
 		sass: {
 			compile: {
 				options: {
-					implementation: require('node-sass'),
-					sourceMap: 'none'
+					implementation: require( 'sass' ),
+                	sourceMap: false
 				},
 				files: [{
 					expand: true,
@@ -269,6 +289,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-compress' );
+	grunt.loadNpmTasks( 'grunt-version' );
 
 	// Register tasks
 	grunt.registerTask( 'default', [
