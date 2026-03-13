@@ -1,14 +1,17 @@
 <?php
 /**
- * Plugin Name: MAS Variation Swatches for WooCommerce
- * Plugin URI: https://github.com/madrasthemes/mas-woocommerce-variation-swatches
- * Description: Replace dropdown fields on your variable products with Color, Label and Image Swatches.
- * Version: 1.0.9
- * Author: MadrasThemes
- * Author URI: https://madrasthemes.com/
- * Text Domain: mas-wcvs
- * Domain Path: /languages/
- * WC tested up to: 9.3
+ * Plugin Name:      MAS Variation Swatches for WooCommerce
+ * Plugin URI:       https://github.com/madrasthemes/mas-woocommerce-variation-swatches
+ * Description:      Replace dropdown fields on your variable products with Color, Label and Image Swatches.
+ * Version:          1.0.9
+ * Author:           MadrasThemes
+ * Author URI:       https://madrasthemes.com/
+ * License:          GPL v2 or later
+ * License URI:      https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:      mas-wcvs
+ * Domain Path:      /languages/
+ * WC tested up to:  10.6.1
+ * Requires Plugins: woocommerce
  *
  * @package MAS_WCVS
  * @category Core

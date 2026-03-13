@@ -64,9 +64,20 @@ final class MAS_WCVS {
 	 * Mas_WCVS Constructor.
 	 */
 	public function __construct() {
+		add_action( 'init', array( $this, 'init' ), 0 );
+	}
+
+	/**
+	 * Init Docs when Wordpress Initializes
+	 */
+	public function init() {
+		// Before init action.
+		do_action( 'before_mas_wcvs_init' );
+
 		$this->define_constants();
 		$this->includes();
 		$this->init_hooks();
+		$this->load_plugin_textdomain();
 
 		$this->attribute_types = mas_wcvs_get_attribute_types();
 
@@ -77,7 +88,7 @@ final class MAS_WCVS {
 	 * Hook into actions and filters.
 	 */
 	private function init_hooks() {
-		add_action( 'init', array( $this, 'init' ), 0 );
+		
 		add_filter( 'product_attributes_type_selector', array( $this, 'add_attribute_types' ) );
 
 		// Widgets Register
@@ -187,17 +198,6 @@ final class MAS_WCVS {
 	 */
 	public function ajax_url() {
 		return admin_url( 'admin-ajax.php', 'relative' );
-	}
-
-	/**
-	 * Init Docs when Wordpress Initializes
-	 */
-	public function init() {
-		// Before init action.
-		do_action( 'before_mas_wcvs_init' );
-
-		// Set up localisation.
-		$this->load_plugin_textdomain();
 	}
 
 	/**
