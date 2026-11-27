@@ -1,14 +1,14 @@
 ;(function ( $ ) {
 	'use strict';
 
-	/**
-	 * @TODO Code a function the calculate available combination instead of use WC hooks
-	 */
 	$.fn.mas_wcvs_variation_swatches_form = function () {
 		return this.each( function() {
 			var $form = $( this ),
-				clicked = null,
 				selected = [];
+
+			if ( $form.hasClass( 'swatches-support' ) ) {
+				return;
+			}
 
 			$form
 				.addClass( 'swatches-support' )
@@ -17,42 +17,74 @@
 					var $el = $( this ),
 						$select = $el.closest( '.value' ).find( 'select' ),
 						attribute_name = $select.data( 'attribute_name' ) || $select.attr( 'name' ),
-						value = $el.data( 'value' );
+						value = $el.data( 'value' ),
+						$option = $select.find( 'option' ).filter( function () {
+							return $( this ).val() === String( value );
+						} );
 
 					$select.trigger( 'focusin' );
 
 					// Check if this combination is available
-					if ( ! $select.find( 'option[value="' + value + '"]' ).length ) {
+					if ( ! $option.length || $option.prop( 'disabled' ) ) {
 						$el.siblings( '.mas-wcvs-swatch' ).removeClass( 'selected' );
-						$select.val( '' ).change();
+						$select.val( '' ).trigger( 'change' );
 						$form.trigger( 'mas_wcvs_no_matching_variations', [$el] );
 						return;
 					}
 
-					clicked = attribute_name;
-
 					if ( selected.indexOf( attribute_name ) === -1 ) {
-						selected.push(attribute_name);
+						selected.push( attribute_name );
 					}
 
 					if ( $el.hasClass( 'selected' ) ) {
 						$select.val( '' );
 						$el.removeClass( 'selected' );
 
-						delete selected[selected.indexOf(attribute_name)];
+						var idx = selected.indexOf( attribute_name );
+						if ( idx !== -1 ) {
+							selected.splice( idx, 1 );
+						}
 					} else {
 						$el.addClass( 'selected' ).siblings( '.selected' ).removeClass( 'selected' );
 						$select.val( value );
 					}
 
-					$select.change();
+					$select.trigger( 'change' );
+				} )
+				.on( 'woocommerce_update_variation_values', function () {
+					$form.find( '.mas-wcvs-swatches' ).each( function () {
+						var $swatches = $( this ),
+							$select = $swatches.closest( '.value' ).find( 'select' ),
+							currentVal = String( $select.val() || '' );
+
+						$swatches.find( '.mas-wcvs-swatch' ).each( function () {
+							var $swatch = $( this ),
+								val = String( $swatch.data( 'value' ) ),
+								$opt = $select.find( 'option' ).filter( function () {
+									return $( this ).val() === val;
+								} );
+
+							if ( ! $opt.length || $opt.prop( 'disabled' ) ) {
+								$swatch.addClass( 'disabled' ).removeClass( 'selected' );
+							} else {
+								$swatch.removeClass( 'disabled' );
+								$swatch.toggleClass( 'selected', currentVal === val );
+							}
+						} );
+					} );
 				} )
 				.on( 'click', '.reset_variations', function () {
-					$( this ).closest( '.variations_form' ).find( '.mas-wcvs-swatch.selected' ).removeClass( 'selected' );
+					$( this ).closest( '.variations_form' ).find( '.mas-wcvs-swatch' ).removeClass( 'selected disabled' );
+					selected = [];
+				} )
+				.on( 'reset_data', function () {
+					$form.find( '.mas-wcvs-swatch' ).removeClass( 'selected disabled' );
 					selected = [];
 				} )
 				.on( 'mas_wcvs_no_matching_variations', function() {
-					window.alert( wc_add_to_cart_variation_params.i18n_no_matching_variations_text );
+					if ( typeof wc_add_to_cart_variation_params !== 'undefined' && wc_add_to_cart_variation_params.i18n_no_matching_variations_text ) {
+						window.alert( wc_add_to_cart_variation_params.i18n_no_matching_variations_text );
+					}
 				} );
 		} );
 	};
@@ -62,8 +94,8 @@
 		$( document.body ).trigger( 'mas_wcvs_initialized' );
 	} );
 
-	$(document).on('yith_quick_view_loaded', function () {
-	    $('.variations_form').mas_wcvs_variation_swatches_form();
-	    $(document.body).trigger('mas_wcvs_initialized');
-	});
+	$( document ).on( 'yith_quick_view_loaded', function () {
+		$( '.variations_form' ).mas_wcvs_variation_swatches_form();
+		$( document.body ).trigger( 'mas_wcvs_initialized' );
+	} );
 })( jQuery );

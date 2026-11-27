@@ -26,7 +26,7 @@ The MAS Variation Swatches for WooCommerce plugin will replace dropdown fields o
 
 = Minimum Requirements =
 
-* PHP version 5.7 or greater (PHP 7.0 or greater is recommended)
+* PHP version 7.4 or greater
 
 = Automatic installation =
 

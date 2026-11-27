@@ -42,25 +42,27 @@ class MAS_WCVS_Admin {
 	 * @return void
 	 */
 	public function scripts() {
-		$screen = get_current_screen();
+		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		if ( strstr( $screen_id, 'edit-pa_' ) || in_array( 'edit-product', array( 'edit-product', 'product' ) ) ) {
+		if ( false !== strpos( $screen_id, 'edit-pa_' ) || in_array( $screen_id, array( 'edit-product', 'product' ), true ) ) {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_media();
-			wp_register_script( 'mas-wcvs-admin-scripts', plugins_url( 'assets/js/admin' . $suffix . '.js', MAS_WCVS_PLUGIN_FILE ), array( 'jquery', 'wp-color-picker' ), mas_wcvs()->version );
-			wp_register_style( 'mas-wcvs-admin-style', plugins_url( 'assets/css/admin.css', MAS_WCVS_PLUGIN_FILE ), '', mas_wcvs()->version );
+			wp_register_script( 'mas-wcvs-admin-scripts', plugins_url( 'assets/js/admin' . $suffix . '.js', MAS_WCVS_PLUGIN_FILE ), array( 'jquery', 'wp-color-picker' ), mas_wcvs()->version, true );
+			wp_register_style( 'mas-wcvs-admin-style', plugins_url( 'assets/css/admin.css', MAS_WCVS_PLUGIN_FILE ), array(), mas_wcvs()->version );
+			wp_style_add_data( 'mas-wcvs-admin-style', 'rtl', 'replace' );
 
-			$js_options = apply_filters( 'mas_wcvs_admin_localize_script_data', array(
-				'media_title'			=> esc_html__( 'Choose an image', 'mas-wcvs' ),
-				'media_btn_text'		=> esc_html__( 'Use image', 'mas-wcvs' ),
-				'placeholder_img_src'	=> wc_placeholder_img_src()
-			) );
+			$js_options = apply_filters(
+				'mas_wcvs_admin_localize_script_data',
+				array(
+					'media_title'         => esc_html__( 'Choose an image', 'mas-wcvs' ),
+					'media_btn_text'      => esc_html__( 'Use image', 'mas-wcvs' ),
+					'placeholder_img_src' => wc_placeholder_img_src(),
+				)
+			);
 
 			wp_localize_script( 'mas-wcvs-admin-scripts', 'mas_wcvs_admin_options', $js_options );
-		}
 
-		if ( strstr( $screen_id, 'edit-pa_' ) || in_array( 'edit-product', array( 'edit-product', 'product' ) ) ) {
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_style( 'mas-wcvs-admin-style' );
 			wp_enqueue_script( 'mas-wcvs-admin-scripts' );

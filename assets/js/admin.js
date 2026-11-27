@@ -6,11 +6,13 @@ jQuery( function ( $ ) {
 	}
 
 	// Uploading files
-	var file_frame;
+	var file_frame,
+		$active_upload_button = null;
 
-	$(document).on( 'click', '.mas_wcvs_upload_image_button', function( event ){
+	$(document).on( 'click', '.mas_wcvs_upload_image_button, .mas_wcvs-upload-image-button', function( event ){
 
 		event.preventDefault();
+		$active_upload_button = $( this );
 
 		// If the media frame already exists, reopen it.
 		if ( file_frame ) {
@@ -29,21 +31,38 @@ jQuery( function ( $ ) {
 
 		// When an image is selected, run a callback.
 		file_frame.on( 'select', function() {
-			attachment = file_frame.state().get('selection').first().toJSON();
+			var attachment = file_frame.state().get('selection').first().toJSON();
 
-			$('#mas_wcvs_image_id').val( attachment.id );
-			$('#mas_wcvs_image img').attr('src', attachment.url );
-			$('.mas_wcvs_remove_image_button').show();
+			if ( $active_upload_button && $active_upload_button.hasClass( 'mas_wcvs-upload-image-button' ) ) {
+				var $modalWrap = $active_upload_button.closest( '.mas_wcvs-term-swatch' );
+				$modalWrap.find( '.mas_wcvs-term-image' ).val( attachment.id );
+				$modalWrap.find( '.mas_wcvs-term-image-thumbnail img' ).attr( 'src', attachment.url );
+				$modalWrap.find( '.mas_wcvs-remove-image-button' ).removeClass( 'hidden' ).show();
+			} else {
+				$('#mas_wcvs_image_id').val( attachment.id );
+				$('#mas_wcvs_image img').attr('src', attachment.url );
+				$('.mas_wcvs_remove_image_button').show();
+			}
 		});
 
 		// Finally, open the modal.
 		file_frame.open();
 	});
 
-	$(document).on( 'click', '.mas_wcvs_remove_image_button', function( event ){
-		$('#mas_wcvs_image img').attr('src', mas_wcvs_admin_options.placeholder_img_src);
-		$('#mas_wcvs_image_id').val('');
-		$('.mas_wcvs_remove_image_button').hide();
+	$(document).on( 'click', '.mas_wcvs_remove_image_button, .mas_wcvs-remove-image-button', function( event ){
+		event.preventDefault();
+		var $btn = $( this );
+
+		if ( $btn.hasClass( 'mas_wcvs-remove-image-button' ) ) {
+			var $modalWrap = $btn.closest( '.mas_wcvs-term-swatch' );
+			$modalWrap.find( '.mas_wcvs-term-image-thumbnail img' ).attr( 'src', mas_wcvs_admin_options.placeholder_img_src );
+			$modalWrap.find( '.mas_wcvs-term-image' ).val( '' );
+			$btn.addClass( 'hidden' ).hide();
+		} else {
+			$('#mas_wcvs_image img').attr('src', mas_wcvs_admin_options.placeholder_img_src);
+			$('#mas_wcvs_image_id').val('');
+			$('.mas_wcvs_remove_image_button').hide();
+		}
 		return false;
 	});
 
