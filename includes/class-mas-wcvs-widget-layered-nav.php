@@ -145,7 +145,7 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 
 		$terms = get_terms( $taxonomy, $get_terms_args );
 
-		if ( 0 === sizeof( $terms ) ) {
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
 			return;
 		}
 
@@ -189,7 +189,8 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 	 * @return string
 	 */
 	protected function get_current_taxonomy() {
-		return is_tax() ? get_queried_object()->taxonomy : '';
+		$queried_object = get_queried_object();
+		return ( is_tax() && $queried_object instanceof WP_Term ) ? $queried_object->taxonomy : '';
 	}
 
 	/**
@@ -197,15 +198,17 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 	 * @return int
 	 */
 	protected function get_current_term_id() {
-		return absint( is_tax() ? get_queried_object()->term_id : 0 );
+		$queried_object = get_queried_object();
+		return absint( ( is_tax() && $queried_object instanceof WP_Term ) ? $queried_object->term_id : 0 );
 	}
 
 	/**
 	 * Return the currently viewed term slug.
-	 * @return int
+	 * @return string
 	 */
 	protected function get_current_term_slug() {
-		return absint( is_tax() ? get_queried_object()->slug : 0 );
+		$queried_object = get_queried_object();
+		return ( is_tax() && $queried_object instanceof WP_Term ) ? sanitize_title( $queried_object->slug ) : '';
 	}
 
 	/**
@@ -281,21 +284,25 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 			$link = get_term_link( get_query_var( 'product_tag' ), 'product_tag' );
 		} else {
 			$queried_object = get_queried_object();
-			$link = get_term_link( $queried_object->slug, $queried_object->taxonomy );
+			$link           = ( $queried_object instanceof WP_Term ) ? get_term_link( $queried_object->slug, $queried_object->taxonomy ) : home_url();
+		}
+
+		if ( is_wp_error( $link ) || ! is_string( $link ) ) {
+			$link = home_url();
 		}
 
 		// Min/Max
 		if ( isset( $_GET['min_price'] ) ) {
-			$link = add_query_arg( 'min_price', wc_clean( $_GET['min_price'] ), $link );
+			$link = add_query_arg( 'min_price', wc_clean( wp_unslash( $_GET['min_price'] ) ), $link );
 		}
 
 		if ( isset( $_GET['max_price'] ) ) {
-			$link = add_query_arg( 'max_price', wc_clean( $_GET['max_price'] ), $link );
+			$link = add_query_arg( 'max_price', wc_clean( wp_unslash( $_GET['max_price'] ) ), $link );
 		}
 
 		// Orderby
 		if ( isset( $_GET['orderby'] ) ) {
-			$link = add_query_arg( 'orderby', wc_clean( $_GET['orderby'] ), $link );
+			$link = add_query_arg( 'orderby', wc_clean( wp_unslash( $_GET['orderby'] ) ), $link );
 		}
 
 		/**
@@ -308,12 +315,12 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 
 		// Post Type Arg
 		if ( isset( $_GET['post_type'] ) ) {
-			$link = add_query_arg( 'post_type', wc_clean( $_GET['post_type'] ), $link );
+			$link = add_query_arg( 'post_type', wc_clean( wp_unslash( $_GET['post_type'] ) ), $link );
 		}
 
 		// Min Rating Arg
 		if ( isset( $_GET['rating_filter'] ) ) {
-			$link = add_query_arg( 'rating_filter', wc_clean( $_GET['rating_filter'] ), $link );
+			$link = add_query_arg( 'rating_filter', wc_clean( wp_unslash( $_GET['rating_filter'] ) ), $link );
 		}
 
 		// All current filters
@@ -346,12 +353,16 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 	protected function get_filtered_term_product_counts( $term_ids, $taxonomy, $query_type ) {
 		global $wpdb;
 
+		if ( empty( $term_ids ) ) {
+			return array();
+		}
+
 		$tax_query  = WC_Query::get_main_tax_query();
 		$meta_query = WC_Query::get_main_meta_query();
 
 		if ( 'or' === $query_type ) {
 			foreach ( $tax_query as $key => $query ) {
-				if ( is_array( $query ) && $taxonomy === $query['taxonomy'] ) {
+				if ( is_array( $query ) && isset( $query['taxonomy'] ) && $taxonomy === $query['taxonomy'] ) {
 					unset( $tax_query[ $key ] );
 				}
 			}
@@ -425,7 +436,7 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 			}
 
 			$filter_name    = 'filter_' . sanitize_title( str_replace( 'pa_', '', $taxonomy ) );
-			$current_filter = isset( $_GET[ $filter_name ] ) ? explode( ',', wc_clean( $_GET[ $filter_name ] ) ) : array();
+			$current_filter = isset( $_GET[ $filter_name ] ) ? explode( ',', wc_clean( wp_unslash( $_GET[ $filter_name ] ) ) ) : array();
 			$current_filter = array_map( 'sanitize_title', $current_filter );
 
 			if ( ! in_array( $term->slug, $current_filter ) ) {
@@ -511,7 +522,7 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 			}
 
 			$filter_name    = 'filter_' . sanitize_title( str_replace( 'pa_', '', $taxonomy ) );
-			$current_filter = isset( $_GET[ $filter_name ] ) ? explode( ',', wc_clean( $_GET[ $filter_name ] ) ) : array();
+			$current_filter = isset( $_GET[ $filter_name ] ) ? explode( ',', wc_clean( wp_unslash( $_GET[ $filter_name ] ) ) ) : array();
 			$current_filter = array_map( 'sanitize_title', $current_filter );
 
 			if ( ! in_array( $term->slug, $current_filter ) ) {
@@ -545,30 +556,29 @@ class MAS_WCVS_Widget_Layered_Nav extends WC_Widget {
 			$swatch_html = '';
 			switch ( $type ) {
 				case 'color':
-					$color_hex = get_term_meta( $term->term_id, 'mas_wcvs_color', true );
-					$swatch_html = sprintf( '<span style="background-color:%1$s;color:%1$s;" title="%2$s">%2$s</span>', $color_hex, $term->name );
+					$color_hex   = (string) get_term_meta( $term->term_id, 'mas_wcvs_color', true );
+					$style       = '' !== $color_hex ? sprintf( 'background-color:%1$s;color:%1$s;', esc_attr( $color_hex ) ) : '';
+					$swatch_html = sprintf( '<span style="%1$s" title="%2$s">%2$s</span>', $style, esc_attr( $term->name ) );
 					break;
-				
-				case 'image':
-					$image_id = get_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
 
-					if( $image_id ) {
-						$image_url = wp_get_attachment_thumb_url( $image_id );
-					} else {
+				case 'image':
+					$image_id  = absint( get_term_meta( $term->term_id, 'mas_wcvs_image_id', true ) );
+					$image_url = $image_id ? wp_get_attachment_thumb_url( $image_id ) : '';
+					if ( ! $image_url ) {
 						$image_url = wc_placeholder_img_src();
 					}
 
-					$swatch_html = sprintf( '<img src="%1$s" alt="%2$s" title="%2$s">', $image_url, $term->name );
+					$swatch_html = sprintf( '<img src="%1$s" alt="%2$s" title="%2$s">', esc_url( $image_url ), esc_attr( $term->name ) );
 					break;
 
 				case 'label':
-					$label = get_term_meta( $term->term_id, 'mas_wcvs_label', true );
+					$label = (string) get_term_meta( $term->term_id, 'mas_wcvs_label', true );
 
-					$swatch_html = sprintf( '<span title="%2$s">%1$s</span>', $label, $term->name );
+					$swatch_html = sprintf( '<span title="%2$s">%1$s</span>', esc_html( $label ), esc_attr( $term->name ) );
 					break;
 
 				default:
-					$swatch_html = $term->name;
+					$swatch_html = esc_html( $term->name );
 					break;
 			}
 

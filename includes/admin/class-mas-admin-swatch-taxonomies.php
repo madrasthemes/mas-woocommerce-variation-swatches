@@ -52,7 +52,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				?>
 				<div class="form-field">
 					<label><?php esc_html_e( 'Image', 'mas-wcvs' ); ?></label>
-					<div id="mas_wcvs_image" style="float:left;margin-right:10px;"><img src="<?php echo wc_placeholder_img_src(); ?>" width="60px" height="60px" alt="" /></div>
+					<div id="mas_wcvs_image" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( wc_placeholder_img_src() ); ?>" width="60px" height="60px" alt="" /></div>
 					<div style="line-height:60px;">
 						<input type="hidden" id="mas_wcvs_image_id" name="mas_wcvs_image_id" />
 						<button type="button" class="mas_wcvs_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wcvs' ); ?></button>
@@ -82,10 +82,13 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	public function edit_swatch_attr_fields( $term, $taxonomy ) {
 		$type = mas_wcvs_attribute_type( $taxonomy );
 
-		$color 		= get_term_meta( $term->term_id, 'mas_wcvs_color', true );
-		$label 		= get_term_meta( $term->term_id, 'mas_wcvs_label', true );
-		$image_id 	= get_term_meta( $term->term_id, 'mas_wcvs_image_id', true );
-		$image 		= ( $image_id ) ? wp_get_attachment_thumb_url( $image_id ) : wc_placeholder_img_src();
+		$color    = get_term_meta( $term->term_id, 'mas_wcvs_color', true );
+		$label    = get_term_meta( $term->term_id, 'mas_wcvs_label', true );
+		$image_id = absint( get_term_meta( $term->term_id, 'mas_wcvs_image_id', true ) );
+		$image    = $image_id ? wp_get_attachment_thumb_url( $image_id ) : '';
+		if ( ! $image ) {
+			$image = wc_placeholder_img_src();
+		}
 		switch ( $type ) {
 			case 'color':
 				?>
@@ -106,8 +109,8 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 						<div id="mas_wcvs_image" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( $image ); ?>" alt="" style="max-width: 150px; height: auto;" /></div>
 						<div style="line-height:60px;">
 							<input type="hidden" id="mas_wcvs_image_id" name="mas_wcvs_image_id" value="<?php echo esc_attr( $image_id ); ?>" />
-							<button type="submit" class="mas_wcvs_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wcvs' ); ?></button>
-							<button type="submit" class="mas_wcvs_remove_image_button button"><?php esc_html_e( 'Remove image', 'mas-wcvs' ); ?></button>
+							<button type="button" class="mas_wcvs_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wcvs' ); ?></button>
+							<button type="button" class="mas_wcvs_remove_image_button button"><?php esc_html_e( 'Remove image', 'mas-wcvs' ); ?></button>
 						</div>
 						<div class="clear"></div>
 					</td>
@@ -133,16 +136,27 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	}
 
 	public function save_swatch_attr_fields( $term_id, $tt_id, $taxonomy ) {
+		if ( ! current_user_can( 'manage_product_terms' ) ) {
+			return;
+		}
+
+		$type = mas_wcvs_attribute_type( $taxonomy );
+		if ( ! array_key_exists( $type, mas_wcvs_get_attribute_types() ) ) {
+			return;
+		}
+
 		if ( isset( $_POST['mas_wcvs_color'] ) ) {
-			update_term_meta( $term_id, 'mas_wcvs_color', sanitize_text_field( $_POST['mas_wcvs_color'] ) );
+			$color = (string) sanitize_hex_color( wp_unslash( $_POST['mas_wcvs_color'] ) );
+			update_term_meta( $term_id, 'mas_wcvs_color', $color );
 		}
 
 		if ( isset( $_POST['mas_wcvs_image_id'] ) ) {
-			update_term_meta( $term_id, 'mas_wcvs_image_id', sanitize_text_field( $_POST['mas_wcvs_image_id'] ) );
+			$image_id = absint( wp_unslash( $_POST['mas_wcvs_image_id'] ) );
+			update_term_meta( $term_id, 'mas_wcvs_image_id', $image_id ? $image_id : '' );
 		}
 
 		if ( isset( $_POST['mas_wcvs_label'] ) ) {
-			update_term_meta( $term_id, 'mas_wcvs_label', sanitize_text_field( $_POST['mas_wcvs_label'] ) );
+			update_term_meta( $term_id, 'mas_wcvs_label', sanitize_text_field( wp_unslash( $_POST['mas_wcvs_label'] ) ) );
 		}
 
 		do_action( 'mas_wcvs_save_swatch_attr_fields', $term_id, $tt_id, $taxonomy );
@@ -151,7 +165,7 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 	}
 
 	public function product_swatch_attr_columns( $columns ) {
-		$taxonomy = isset( $_REQUEST['taxonomy'] ) ? sanitize_text_field( $_REQUEST['taxonomy'] ) : '';
+		$taxonomy = isset( $_REQUEST['taxonomy'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ) ) : '';
 		$type = mas_wcvs_attribute_type( $taxonomy );
 
 		$new_columns = array();
@@ -191,15 +205,13 @@ class MAS_WCVS_Admin_Swatch_Taxonomies {
 				break;
 
 			case 'image':
-				$image_id 	= get_term_meta( $id, 'mas_wcvs_image_id', true );
-
-				if( $image_id ) {
-					$image = wp_get_attachment_thumb_url( $image_id );
-				} else {
+				$image_id = absint( get_term_meta( $id, 'mas_wcvs_image_id', true ) );
+				$image    = $image_id ? wp_get_attachment_thumb_url( $image_id ) : '';
+				if ( ! $image ) {
 					$image = wc_placeholder_img_src();
 				}
 
-				$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_html__( 'Image', 'mas-wcvs' ) . '" class="wp-post-image" height="48" width="48" />';
+				$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_attr__( 'Image', 'mas-wcvs' ) . '" class="wp-post-image" height="48" width="48" />';
 				break;
 
 			case 'label':

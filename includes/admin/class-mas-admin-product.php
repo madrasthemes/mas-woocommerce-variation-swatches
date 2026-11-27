@@ -37,23 +37,23 @@ class MAS_WCVS_Admin_Product {
 		$taxonomy_name = wc_attribute_taxonomy_name( $taxonomy->attribute_name );
 		global $thepostid;
 
-		$product_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : $thepostid;
+		$product_id = isset( $_POST['post_id'] ) ? absint( wp_unslash( $_POST['post_id'] ) ) : absint( $thepostid );
 		?>
 
-		<select multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select terms', 'mas-wcvs' ); ?>" class="multiselect attribute_values wc-enhanced-select" name="attribute_values[<?php echo $index; ?>][]">
+		<select multiple="multiple" data-placeholder="<?php esc_attr_e( 'Select terms', 'mas-wcvs' ); ?>" class="multiselect attribute_values wc-enhanced-select" name="attribute_values[<?php echo esc_attr( $index ); ?>][]">
 			<?php
 
 			$all_terms = get_terms( $taxonomy_name, apply_filters( 'woocommerce_product_attribute_terms', array( 'orderby' => 'name', 'hide_empty' => false ) ) );
-			if ( $all_terms ) {
+			if ( ! is_wp_error( $all_terms ) && ! empty( $all_terms ) ) {
 				foreach ( $all_terms as $term ) {
-					echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( has_term( absint( $term->term_id ), $taxonomy_name, $product_id ), true, false ) . '>' . esc_attr( apply_filters( 'woocommerce_product_attribute_term_name', $term->name, $term ) ) . '</option>';
+					echo '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( has_term( absint( $term->term_id ), $taxonomy_name, $product_id ), true, false ) . '>' . esc_html( apply_filters( 'woocommerce_product_attribute_term_name', $term->name, $term ) ) . '</option>';
 				}
 			}
 			?>
 		</select>
 		<button class="button plus select_all_attributes"><?php esc_html_e( 'Select all', 'mas-wcvs' ); ?></button>
 		<button class="button minus select_no_attributes"><?php esc_html_e( 'Select none', 'mas-wcvs' ); ?></button>
-		<button class="button fr plus mas_wcvs_add_new_attribute" data-type="<?php echo $taxonomy->attribute_type ?>"><?php esc_html_e( 'Add new', 'mas-wcvs' ); ?></button>
+		<button class="button fr plus mas_wcvs_add_new_attribute" data-type="<?php echo esc_attr( $taxonomy->attribute_type ); ?>"><?php esc_html_e( 'Add new', 'mas-wcvs' ); ?></button>
 
 		<?php
 	}
@@ -62,15 +62,33 @@ class MAS_WCVS_Admin_Product {
 	 * Ajax function handles adding new attribute term
 	 */
 	public function add_new_attribute_ajax() {
-		$nonce  = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
-		$tax    = isset( $_POST['taxonomy'] ) ? sanitize_text_field( $_POST['taxonomy'] ) : '';
-		$type   = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : '';
-		$name   = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
-		$slug   = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
-		$swatch = isset( $_POST['swatch'] ) ? sanitize_text_field( $_POST['swatch'] ) : '';
+		$nonce      = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		$tax        = isset( $_POST['taxonomy'] ) ? sanitize_text_field( wp_unslash( $_POST['taxonomy'] ) ) : '';
+		$type       = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
+		$name       = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+		$slug       = isset( $_POST['slug'] ) ? sanitize_title( wp_unslash( $_POST['slug'] ) ) : '';
+		$raw_swatch = isset( $_POST['swatch'] ) ? wp_unslash( $_POST['swatch'] ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, '_mas_wcvs_create_attribute' ) ) {
 			wp_send_json_error( esc_html__( 'Wrong request', 'mas-wcvs' ) );
+		}
+
+		if ( ! current_user_can( 'manage_product_terms' ) ) {
+			wp_send_json_error( esc_html__( 'Permission denied', 'mas-wcvs' ) );
+		}
+
+		switch ( $type ) {
+			case 'color':
+				$swatch = (string) sanitize_hex_color( $raw_swatch );
+				break;
+
+			case 'image':
+				$swatch = absint( $raw_swatch );
+				break;
+
+			default:
+				$swatch = sanitize_text_field( $raw_swatch );
+				break;
 		}
 
 		if ( empty( $name ) || empty( $swatch ) || empty( $tax ) || empty( $type ) ) {
@@ -109,7 +127,13 @@ class MAS_WCVS_Admin_Product {
 			}
 
 			$term = get_term_by( 'id', $term['term_id'], $tax );
-			update_term_meta( $term->term_id, $meta_key, $swatch );
+			if ( $term instanceof WP_Term ) {
+				update_term_meta( $term->term_id, $meta_key, $swatch );
+			}
+		}
+
+		if ( ! $term instanceof WP_Term ) {
+			wp_send_json_error( esc_html__( 'Unable to retrieve created term', 'mas-wcvs' ) );
 		}
 
 		wp_send_json_success(
@@ -128,7 +152,7 @@ class MAS_WCVS_Admin_Product {
 	public function add_attribute_term_template() {
 		global $pagenow, $post;
 
-		if ( $pagenow != 'post.php' || ( isset( $post ) && get_post_type( $post->ID ) != 'product' ) ) {
+		if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ), true ) || ! isset( $post ) || 'product' !== get_post_type( $post->ID ) ) {
 			return;
 		}
 		?>
@@ -156,7 +180,7 @@ class MAS_WCVS_Admin_Product {
 					</div>
 					<div class="hidden mas_wcvs-term-tax"></div>
 
-					<input type="hidden" class="mas_wcvs-input" name="nonce" value="<?php echo wp_create_nonce( '_mas_wcvs_create_attribute' ) ?>">
+					<input type="hidden" class="mas_wcvs-input" name="nonce" value="<?php echo esc_attr( wp_create_nonce( '_mas_wcvs_create_attribute' ) ); ?>">
 				</div>
 				<div class="mas_wcvs-modal-footer">
 					<button class="button button-secondary mas_wcvs-modal-close"><?php esc_html_e( 'Cancel', 'mas-wcvs' ) ?></button>
